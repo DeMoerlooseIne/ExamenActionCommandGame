@@ -1,0 +1,45 @@
+﻿@inject IPlayerItemApi _playerItemApi
+
+<li class="list-group-item">
+    <div class="d-flex flex-row justify-content-center">
+        <p class="primary-color fw-bold h5"> @PlayerItem.Name </p>
+        
+        @*I was trying to delete a playeritem from the inventory but it was crashing every time i restarted the program*@
+        <button @onclick="DeletePlayerItem" class="text-danger border-0 bg-white"><span class="far fa-minus-square mb-1"></span></button>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(@PlayerItem.Description))
+    {
+        <span> @PlayerItem.Description</span>
+    }
+    @if (@PlayerItem.Fuel > 0)
+    {
+        <p> Fuel: @PlayerItem.RemainingFuel/@PlayerItem.Fuel</p>
+    }
+    @if (@PlayerItem.Attack > 0)
+    {
+        <p> Attack: @PlayerItem.RemainingAttack/@PlayerItem.Attack</p>
+    }
+    @if (@PlayerItem.Defense > 0)
+    {
+        <p> Defence: @PlayerItem.RemainingDefense/@PlayerItem.Defense</p>
+    }
+    @if (@PlayerItem.ActionCooldownSeconds > 0)
+    {
+        <p> Cooldown seconds: @PlayerItem.ActionCooldownSeconds</p>
+    }
+</li>
+
+@code {
+    [Parameter]
+    public PlayerItemResult PlayerItem { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsPlayerItemDeleted { get; set; }
+
+    private async Task DeletePlayerItem()
+    {
+        await _playerItemApi.DeleteAsync(PlayerItem.Id);
+        await IsPlayerItemDeleted.InvokeAsync();
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,207 @@
+﻿@page "/game"
+@inject IGameApi GameApi
+@inject IPlayerApi PlayerApi
+@inject IItemApi ItemApi
+@inject IPlayerItemApi PlayerItemApi;
+@inject ILocalStorageService StorageService
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+@using ActionCommandGame.BlazorApp.Components
+
+
+<style>
+    body {
+        background-image: url(../images/backgrounds/wallpaper5.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<div @onclick="PortalTwirl" class="vh-100 game-background">
+
+    <div class="d-flex w-100 justify-content-between">
+        <a href="/players" class="btn change-player-btn fw-bolder border-white primary-color ms-3 mt-3 rounded-pill">
+            Change Player
+            <i class="fas fa-people-arrows ms-1"></i>
+        </a>
+        <audio id="player">
+            <source id="playerSource" src="" />
+        </audio>
+        <button @onclick="Logout" class="btn logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill">
+            LOGOUT
+            <i class="fas fa-sign-out-alt ms-1"></i>
+        </button>
+    </div>
+    <div class="container">
+        <div style="height: 60vh" class="row mt-0">
+            <div class="col-12 col-lg-5 mt-0 portal-section">
+                <div data-toggle="tooltip" data-placement="top" title="CLICK ME" class="d-flex flex-row justify-content-center mb-5">
+                    <audio id="player">
+                        <source id="playerSource" src="" />
+                    </audio>
+                    <button @onclick="Travel" class="btn rounded-circle portal-button btn-dark">
+                        <img class="portal @PortalTwirlCss" src="images/Portal.png"/>
+                    </button>
+                </div>
+                <div class="h5 primary-color mt-3 lift-text">
+                    @if (_positiveGameEvent is null)
+                    {
+                        <p class="h1 primary-color">
+                            Which dimension are you going to end up ?
+                        </p>
+                    }
+                    @if (_positiveGameEvent != null)
+                    {
+                        <p class="fw-bold h-6">@Player.Name, Click the portal gun and go...</p>
+                        <p class="fst-italic">@_positiveGameEvent.Name</p>
+                        @if (!string.IsNullOrWhiteSpace(_positiveGameEvent.Description))
+                        {
+                            <p>@_positiveGameEvent.Description</p>
+                        }
+                        @if (_positiveGameEvent.Money > 0)
+                        {
+                            <p>@($"{_positiveGameEvent.Money} dollars has been added to your account.")</p>
+                        }
+                    }
+                    @if (_negativeGameEvent != null)
+                    {
+                        <p>@_negativeGameEvent.Name</p>
+                        @if (!string.IsNullOrWhiteSpace(_negativeGameEvent.Description))
+                        {
+                            <p>@_negativeGameEvent.Description</p>
+
+                            @foreach (var message in _negativeGameEventMessage)
+                            {
+                                <p>@message.Message</p>
+                            }
+                        }
+                    }
+                    @foreach (var message in ServiceMessages)
+                    {
+                        <p class="service-message">@message.Message</p>
+                    }
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-3 mt-2 me-3">
+                <StatsComponent Player="Player" />
+            </div>
+            <div class="col-12 col-lg-3 mt-2">
+                <div class="mb-3">
+                    <LeaderboardComponent OrderedPlayers="_orderedPlayers" />
+                </div>
+                <div>
+                    <div class="card text-center shadow fw-bold">
+                        <div class="card-header h2 bg-dark text-white">
+                            <a href="/shop"><i class="fas fa-cart-arrow-down icon-background shop-icon"></i></a>
+                            Shop
+                        </div>
+                        @if (!PlayerItems.Any())
+                        {
+                            <div class="d-flex playerItems-card align-items-center text-center">
+                                <p>
+                                    Click on the shopping cart to buy some cool stuff
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <ul class="list-group list-group-flush scroll playerItems-card ">
+                                @foreach (var playerItem in PlayerItems)
+                                {
+                                    <PlayerItemComponent IsPlayerItemDeleted="RefreshPlayeritems" PlayerItem="playerItem"></PlayerItemComponent>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private int _playerId;
+    private PlayerResult Player { get; set; } = new();
+    private IList<PlayerItemResult> PlayerItems { get; set; } = new List<PlayerItemResult>();
+    private IList<ServiceMessage> ServiceMessages { get; set; } = new List<ServiceMessage>();
+
+    private PositiveGameEventResult? _positiveGameEvent;
+    private NegativeGameEventResult? _negativeGameEvent;
+    private IList<ServiceMessage>? _negativeGameEventMessage;
+
+    private IList<PlayerResult> _orderedPlayers = new List<PlayerResult>();
+    private PlayerItemFilter? Filter { get; set; }
+
+    private List<string> RickSounds = new List<string>()
+    {
+        "by-the-way-life-on-other-planets-exists.mp3", "ill-see-you-motherfuckers-at-the-dance.mp3", "it-was-your-idea.mp3", "i-think-this-might-be-it.mp3", "im-a-genius.mp3",
+        "nice-to-be-on-the-same-page-every-once-in-awhile.mp3", "oh-shit-dog.mp3", "Pickle Rick.mp3", "and-if-you-spend-all-day-shuffling-words-around-you-can-make-anything-sound-bad-morty.mp3",
+        "good-idea.mp3", "hell-yeah.mp3", "holy-shit.mp3", "punk-ass-little-bitch.mp3", "relax-and-stop-being-a-pussy-morty.mp3", "Wabbalubbadubdub.mp3"
+    };
+
+    private string PortalTwirlCss = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        _playerId = await StorageService.GetItemAsync<int>("PlayerId");
+        var result = await PlayerApi.GetAsync(_playerId);
+        Player = result.Data;
+
+        await RefreshLeaderBoard();
+        await RefreshPlayeritems();
+        await base.OnInitializedAsync();
+        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/Head Bent Over.mp3");
+    }
+
+    private async Task Travel()
+    {
+        var result = await GameApi.PerformActionAsync(_playerId);
+
+        Random random = new Random();
+        int index = random.Next(RickSounds.Count);
+        await JsRuntime.InvokeVoidAsync("PlayAudioFile", $"/ricksounds/{RickSounds[index]}");
+
+        Player = result.Data.Player;
+        _positiveGameEvent = result.Data.PositiveGameEvent;
+        _negativeGameEvent = result.Data.NegativeGameEvent;
+        _negativeGameEventMessage = result.Data.NegativeGameEventMessages;
+        ServiceMessages = result.Messages;
+
+        PortalTwirlCss = "twirl-portal";
+
+        await RefreshPlayeritems();
+        await RefreshLeaderBoard();
+        StateHasChanged();
+    }
+
+    private async Task RefreshPlayeritems()
+    {
+        Filter = new PlayerItemFilter()
+            {
+                PlayerId = _playerId
+            };
+
+        var playerItemResult = await PlayerItemApi.FindAsync(Filter);
+        PlayerItems = playerItemResult.Data;
+    }
+
+    private async Task RefreshLeaderBoard()
+    {
+        var playersResult = await PlayerApi.Find(new PlayerFilter());
+        _orderedPlayers = playersResult.Data.OrderByDescending(p => p.Experience).ToList();
+    }
+
+    private async Task Logout()
+    {
+        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/its-time-to-go-back-to-our-lives.mp3");
+        await Task.Delay(1600);
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void PortalTwirl()
+    {
+        PortalTwirlCss = "";
+    }
+}

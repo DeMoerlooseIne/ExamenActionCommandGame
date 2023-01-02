@@ -1,0 +1,128 @@
+﻿  @page "/create"
+  @page "/update/{Id:int}"
+  @inject NavigationManager NavigationManager
+  @inject IPlayerApi PlayerApi
+  @inject IJSRuntime JsRuntime
+  @using ActionCommandGame.BlazorApp.Components
+
+<div class="vh-100 d-flex justify-content-center align-items-center">
+    <audio id="player">
+        <source id="playerSource" src="" />
+    </audio>
+    <video autoplay loop id="myVideo">
+        <source src="../ricksounds/100 years.mp4" type="video/mp4">
+        <style>
+    #myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    }</style>
+    </video>
+    <div class="wrapper createupdateplayer">
+        <style> .createupdateplayer{ position: fixed; } </style>
+        <div class="w-100 text-center">
+            <a href="/players">
+                <div class="image"></div>
+            </a>
+        </div>
+        <div class="text-center mt-3">
+            <DropdownComponent TItem="string" OnSelected="@OnSelected">
+                <InitialTip>Select Player's Image</InitialTip>
+                <ChildContent>
+                    <DropdownListItemComponent Item="@imageList[0]"><img style="height: 150px; width: 170px" src="https://helios-i.mashable.com/imagery/articles/04b5Pjp3N03vQQuyYLz6XRa/hero-image.fill.size_1200x1200.v1623364951.png"  /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[1]"><img style="height: 150px; width: 170px" src="https://static1.srcdn.com/wordpress/wp-content/uploads/2017/04/Rick-and-Morty-Mr.-Meeseeks.jpg" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[2]"><img style="height: 150px; width: 170px" src="https://static.wikia.nocookie.net/rickandmorty/images/2/23/Evil_Morty_NeverRicking_Morty.jpg" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[3]"><img style="height: 150px; width: 170px" src="https://static.wikia.nocookie.net/rickandmorty/images/e/e8/Jessica.png" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[4]"><img style="height: 150px; width: 170px" src="https://www.looper.com/img/gallery/why-mr-nimbus-from-rick-and-morty-is-more-important-than-you-think/intro-1624381669.jpg" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[5]"><img style="height: 150px; width: 170px" src="https://static.wikia.nocookie.net/rickandmorty/images/b/bb/Abradolf_Lincler_Angry.png" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[6]"><img style="height: 150px; width: 170px" src="https://static.wikia.nocookie.net/rickandmorty/images/1/16/Zeep.png/" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[7]"><img style="height: 150px; width: 170px" src="https://static.wikia.nocookie.net/rickandmorty/images/4/4f/Principal_Vagina_S01_E09.png" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[8]"><img style="height: 150px; width: 170px" src="https://static.wikia.nocookie.net/rickandmorty/images/4/40/Mr._Goldenfold.png" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[9]"><img style="height: 150px; width: 170px" src="https://images.hobbydb.com/processed_uploads/subject_photo/subject_photo/image/43329/1537382146-18191-1647/maxresdefault_large.jpg" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[10]"><img style="height: 150px; width: 170px" src="https://i1.sndcdn.com/artworks-000131941579-k9t4qc-t500x500.jpg" /></DropdownListItemComponent>
+                </ChildContent>
+            </DropdownComponent>
+        </div>
+        <EditForm Model="Player" OnValidSubmit="HandleCreateUpdate" class="p-3 mt-3">
+            <DataAnnotationsValidator />
+            <ValidationMessage For="() => Player.Name" />
+            <div class="form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <InputText @bind-Value="Player.Name" placeholder="name" />
+            </div>
+            <ValidationMessage For="() => Player.Money" />
+            <div class="form-field d-flex align-items-center">
+                <span class="fas fa-fist-raised"></span>
+                <InputNumber @bind-Value="Player.Money" placeholder="money" />
+            </div>
+            <ValidationMessage For="() => Player.Experience" />
+            <div class="form-field d-flex align-items-center">
+                <span class="fas fa-chart-line"></span>
+                <InputNumber @bind-Value="Player.Experience" placeholder="expercience" />
+            </div>
+            <div class="text-center fs-6 flex-column d-flex w-100">
+                <button type="submit" class="btn change-player-btn bg-black border-white primary-color rounded-pill w-100">
+                    <i class="fas fa-user-check"></i>
+                    @Title
+                </button>
+                <a href="/players" class="btn cancel-player-btn rounded-pill mt-2 w-100">
+                    <i class="fas fa-user-alt-slash"></i>
+                    CANCEL
+                </a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int? Id { get; set; }
+
+    List<string> imageList;
+
+    private string Title { get; set; } = "CREATE";
+
+    private PlayerResult Player { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        imageList = new List<string> { "PickleRatRick.png", "Meeseeks.png", "EvilMorty.png", "Jessica.png", "MrNimbus.png", "Abradolf.png", "Zeep.png",
+        "PrincipalVagina.png", "MrGoldenfold.png", "GearHead.png", "MrPoopyButthole.png"};
+
+        if (Id != null)
+        {
+            Title = "UPDATE";
+            var result = await PlayerApi.GetAsync(Id.Value);
+            Player = result.Data;
+            await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/Show Me What You Got.mp3");
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/Show Me What You Got.mp3");
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task HandleCreateUpdate()
+    {
+        if (Title == "UPDATE")
+        {
+            await PlayerApi.Update(Player.Id, Player);
+        }
+        else
+        {
+            await PlayerApi.Create(Player);
+        }
+
+        NavigationManager.NavigateTo("/players");
+    }
+
+    private void OnSelected(string selectedImage)
+    {
+        Player.ImageName = selectedImage;
+    }
+  }

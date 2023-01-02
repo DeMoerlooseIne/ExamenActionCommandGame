@@ -1,0 +1,52 @@
+﻿@inject NavigationManager _navigationManager 
+@inject ILocalStorageService _storageService
+@inject IPlayerApi _playerApi
+@inject IJSRuntime _jsRuntime
+
+<div class="card player-card" style="height: 675px; width: 200px">
+    <audio id="player">
+        <source id="playerSource" src="" />
+    </audio>
+    <img @onclick="() => SetPlayerId(Player.Id)" src=@($"images/{Player.ImageName}") style="height: 500px; width: 200px" class="card-img-top player-image" alt="player image"/>
+    <div class="card-body bg-dark text-white">
+        <h5 class="card-title primary-color">@Player.Name</h5>
+        <p class="card-text">Money: @Player.Money</p>
+        <p class="card-text">Experience: @Player.Experience</p>
+        <div class="mt-4">
+            <button @onclick="() => SetPlayerId(Player.Id)" class="btn fw-bolder play-btn me-1 rounded-pill">Play <i class="fas fa-play play-icon"></i></button>
+            <button @onclick="ShowDeleteComponent" class="btn btn-sm btn-danger rounded-pill me-1"><i class="fas fa-trash-alt"></i></button>
+            <a href="/update/@Player.Id" class="btn btn-sm update-btn border-1 rounded-pill"><i class="fas fa-user-edit"></i></a>
+        </div>
+    </div>
+</div>
+
+<DeleteComponent @ref="DeleteComponent" OnDelete="IsDeleted" Player="Player"/>
+
+@code {
+    [Parameter]
+    public PlayerResult Player { get; set; }
+
+    private DeleteComponent? DeleteComponent { get; set; }
+
+    [Parameter]
+    public EventCallback IsDeleted { get; set; }
+
+    private async Task SetPlayerId(int playerId)
+    {
+        await _storageService.SetItemAsync("PlayerId", Player.Id);
+        _navigationManager.NavigateTo("/Game");
+    }
+
+    private async Task ShowDeleteComponent()
+    {
+        await _storageService.SetItemAsync("PlayerId", Player.Id);
+        await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/sounds/hasta-la-vista.mp3");
+
+        if (DeleteComponent is null)
+        {
+            return;
+        }
+
+        DeleteComponent.Open();
+    }
+}

@@ -1,0 +1,155 @@
+﻿@page "/"
+
+@using ActionCommandGame.Api.Authentication.Model
+@using ActionCommandGame.Sdk.Abstractions
+@using ActionCommandGame.BlazorApp.Providers
+@inject IIdentityApi IdentityApi
+@inject ITokenStore TokenStore
+@inject ILocalStorageService StorageService
+@inject NavigationManager NavigationManager
+@inject TokenAuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime _jsRuntime
+
+<style>
+    body {
+        background-image: url(../images/backgrounds/wallpaper3.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+@if (isLoginShowing)
+{
+    <div class="vh-100 login-background d-flex flex-column justify-content-center align-items-center">
+        <div class="typewriter mb-5 rounded-3">
+            <h3 class="primary-color fw-bold display-4">
+                <span><img class="login-span" src="images/Rick_Sanchez.png" /></span>
+                Are you ready to play ?
+                <span><img class="login-span" src="images/Rick_Sanchez.png" /></span>
+            </h3>
+        </div>
+        <div class="wrapper">
+            <h2 class="fw-bolder display-6 primary-color text-center mb-2">LOGIN</h2>
+            <div class="w-100 text-center">
+                <div class="loginimage"></div>
+            </div>
+            <EditForm Model="_signInRequest" OnValidSubmit="LoginUser" class="p-3 mt-3">
+                <audio id="player">
+                    <source id="playerSource" src="" />
+                </audio>
+                <DataAnnotationsValidator />
+                <ValidationMessage For="() => _signInRequest.Email" />
+                <div class="form-field d-flex align-items-center">
+                    <span class="far fa-user"></span>
+                    <InputText @bind-Value="_signInRequest.Email" type="text" name="userName" id="userName" placeholder="Username" />
+                </div>
+
+                <ValidationMessage For="() => _signInRequest.Password" />
+                <div class="form-field d-flex align-items-center">
+                    <span class="fas fa-key"></span>
+                    <InputText @bind-Value="_signInRequest.Password" type="password" name="password" id="pwd" placeholder="Password" />
+                </div>
+                <div>
+                    <button type="submit" class="btn login-btn" onmouseover="document.getElementById('dothisthing').play()">Login</button>
+                </div>
+            </EditForm>
+            <div @onclick="ShowRegistration" class="text-center fs-6">
+                Not A Member? <a href="#"><span class="signin-link" onmouseover="document.getElementById('whoareyou').play()">Sign Up</span></a>
+            </div>
+        </div>
+    </div>
+}
+
+@if (isRegisterShowing)
+{
+    <div class="vh-100 login-background d-flex justify-content-center align-items-center">
+        <div class="wrapper">
+            <h2 class="fw-bolder display-6 primary-color text-center mb-2">REGISTER</h2>
+            <div class="w-100 text-center"> <i class="fas fa-dumbbell fa-fw fa-7x"></i></div>
+            <EditForm Model="_registrationRequest" OnValidSubmit="RegisterUser" class="p-3 mt-3">
+                <audio id="player">
+                    <source id="playerSource" src="" />
+                </audio>
+                <DataAnnotationsValidator />
+                <ValidationMessage For="() => _registrationRequest.Email" />
+                <div class="form-field d-flex align-items-center">
+                    <span class="far fa-user"></span>
+                    <InputText @bind-Value="_registrationRequest.Email" type="text" name="userName" id="userName" placeholder="Username" />
+                </div>
+
+                <ValidationMessage For="() => _registrationRequest.Password" />
+                <div class="form-field d-flex align-items-center">
+                    <span class="fas fa-key"></span>
+                    <InputText @bind-Value="_registrationRequest.Password" type="password" name="password" id="pwd" placeholder="Password" />
+                </div>
+                <button type="submit" class="btn login-btn">Register</button>
+            </EditForm>
+            <div @onclick="ShowLogin" class="text-center fs-6">
+                Already A Member? <a href="#"><span class="signin-link">Login</span></a>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    private UserSignInRequest _signInRequest = new();
+    private UserRegistrationRequest _registrationRequest = new();
+
+    private bool isRegisterShowing;
+    private bool isLoginShowing = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    public async Task LoginUser()
+    {
+        var result = await IdentityApi.SignInAsync(_signInRequest);
+        if (!result.Success)
+        {
+            await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/who--the-fuck-are-you.mp3");
+            await _jsRuntime.InvokeVoidAsync("ShowSwal", "error",
+                "I don't know you, get out, motherfucker!!!!");
+            
+            return;
+        }
+
+        await StorageService.SetItemAsync("Token", result.Token);
+
+
+        NavigationManager.NavigateTo("/players");
+    }
+
+    public async Task RegisterUser()
+    {
+        var result = await IdentityApi.RegisterAsync(_registrationRequest);
+        await StorageService.SetItemAsync("Token", result.Token);
+
+        if (result.Success)
+        {
+            await _jsRuntime.InvokeVoidAsync("ShowSwal", "success", "Allright, you are ready to sign in!!!");
+            isRegisterShowing = false;
+            isLoginShowing = true;
+        }
+        else
+        {
+            await _jsRuntime.InvokeVoidAsync("ShowSwal", "error",
+                "I don't know you, get out, motherfucker!!!!");
+            await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/who--the-fuck-are-you.mp3");
+        }
+    }
+
+    private void ShowRegistration()
+    {
+        isRegisterShowing = true;
+        isLoginShowing = false;
+    }
+
+    private void ShowLogin()
+    {
+        isRegisterShowing = false;
+        isLoginShowing = true;
+    }
+}

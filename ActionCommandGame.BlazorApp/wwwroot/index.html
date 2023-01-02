@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ActionCommandGame.Ui.BlazorApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link href="css/app.css" rel="stylesheet" />
+    <!-- The audio element -->
+    <audio id="dothisthing" src="../ricksounds/do-this-thing.mp3" preload="auto"></audio>
+    <audio id="whoareyou" src="../ricksounds/who-the-fuck-are-you.mp3" preload="auto"></audio>
+    <script src="https://kit.fontawesome.com/c3e5479c48.js" crossorigin="anonymous"></script>
+    <link href="_content/ChartJS.Blazor/chartjs.min.css" rel="stylesheet" />
+    <script src="_content/ChartJS.Blazor/chartjs.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=IBM+Plex+Mono:wght@200;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        var video = document.getElementById("myVideo");
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <div id="app">
+        <div class="vh-100 w-100 d-flex flex-column justify-content-center align-items-center">
+            <!--Here I add a gif wrapping the whole screen when loading-->
+            <img style="height: inherit; width: inherit;" src="https://i.gifer.com/Yp1I.gif" />
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="https://kit.fontawesome.com/c3e5479c48.js" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+            data-auto-a11y="true"></script>
+    <script src="Js/global.js"></script>
+
+    <!--sweetalert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+    <!-- Ybug code start (https://ybug.io) -->
+    <script type='text/javascript'>
+        (function () {
+            window.ybug_settings = { "id": "csv554q67j6wt64b17pj" };
+            var ybug = document.createElement('script'); ybug.type = 'text/javascript'; ybug.async = true;
+            ybug.src = 'https://widget.ybug.io/button/' + window.ybug_settings.id + '.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ybug, s);
+        })();
+    </script>
+    <!-- Ybug code end -->
+</body>
+
+</html>

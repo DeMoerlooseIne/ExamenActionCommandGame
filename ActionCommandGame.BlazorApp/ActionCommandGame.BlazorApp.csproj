@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\app.css" />
+    <None Include="wwwroot\css\bootstrap\bootstrap.min.css" />
+    <None Include="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+    <None Include="wwwroot\css\open-iconic\FONT-LICENSE" />
+    <None Include="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
+    <None Include="wwwroot\css\open-iconic\font\fonts\open-iconic.eot" />
+    <None Include="wwwroot\css\open-iconic\font\fonts\open-iconic.otf" />
+    <None Include="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
+    <None Include="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf" />
+    <None Include="wwwroot\css\open-iconic\font\fonts\open-iconic.woff" />
+    <None Include="wwwroot\css\open-iconic\ICON-LICENSE" />
+    <None Include="wwwroot\css\open-iconic\README.md" />
+    <None Include="wwwroot\favicon.ico" />
+    <None Include="wwwroot\icon-192.png" />
+    <None Include="wwwroot\images\backgrounds\IndexBackground.jpg" />
+    <None Include="wwwroot\images\backgrounds\portal.gif" />
+    <None Include="wwwroot\images\backgrounds\ram.jpg" />
+    <None Include="wwwroot\images\backgrounds\rick-and-morty-rick.gif" />
+    <None Include="wwwroot\images\backgrounds\rickandmorty1.jpg" />
+    <None Include="wwwroot\images\backgrounds\wallpaper.jpg" />
+    <None Include="wwwroot\images\backgrounds\wallpaper1.jpg" />
+    <None Include="wwwroot\images\backgrounds\wallpaper2.jpg" />
+    <None Include="wwwroot\images\backgrounds\wallpaper3.jpg" />
+    <None Include="wwwroot\images\backgrounds\wallpaper4.jpg" />
+    <None Include="wwwroot\images\backgrounds\wallpaper5.png" />
+    <None Include="wwwroot\images\backgrounds\wallpaper6.jpg" />
+    <None Include="wwwroot\images\backgrounds\wallpaper7.jpg" />
+    <None Include="wwwroot\images\PortalGun.png" />
+    <None Include="wwwroot\images\rickandmorty.jpg" />
+    <None Include="wwwroot\images\Rick_Sanchez.png" />
+    <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\Js\fontawesome-all.min.js" />
+    <None Include="wwwroot\Js\global.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
+    <PackageReference Include="ChartJs.Blazor" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.0" />
+	  <PackageReference Include="Syncfusion.Blazor" Version="20.4.0.41" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\ActionCommandGame.Extensions\ActionCommandGame.Extensions.csproj" />
+    <ProjectReference Include="..\ActionCommandGame.Sdk\ActionCommandGame.Sdk.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,54 @@
+﻿
+.create-update-btn {
+    text-decoration: none;
+    font-size: 2.5rem;
+    color: chartreuse;
+    transition: all 0.2s linear;
+}
+
+.create-update-btn:hover {
+    transform: scale(1.2);
+}
+
+.image:hover {
+    cursor: pointer;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.change-player-btn:hover {
+    color: white;
+    background: chartreuse;
+}
+
+.cancel-player-btn {
+    background: chartreuse;
+}
+
+.cancel-player-btn:hover {
+    color: white;
+}
+
+.image {
+    height: 20vh;
+    background-image: url(../images/PortalGun.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.3s;
+}
+
+
+.image:hover {
+    transform: scale(1.1);
+}
+
+.createupdateplayer {
+    position: fixed
+}

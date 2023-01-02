@@ -1,0 +1,108 @@
+﻿@page "/shop"
+@inject IItemApi _itemApi
+@inject IPlayerApi _playerApi
+@inject ILocalStorageService _storageService
+@using ActionCommandGame.BlazorApp.Components
+
+<div class="vh-100 h-100 bg-dark shop-background">
+    <div class="container">
+        <div class="mx-2 pt-3 flex-row d-flex align-items-center justify-content-between">
+            <a href="/game" class="btn back-button fw-bolder rounded-pill border-white">BACK</a>
+            <p class=" primary-color h3">Welcome to our shop, <span class="text-success">@Player.Name</span></p>
+        </div>
+        <div id="scroll-style" class="row shop-view scroll">
+            @if (!Items.Any())
+            {
+                <p>Shop is loading...</p>
+            }
+            <div class="mt-3 bg-black primary-color py-2 h1 d-flex justify-content-center align-content-center rounded-3 fw-bold">
+                <div class="fa-layers me-5 mt-1">
+                    <i class="fas fa-circle icon-background"></i>
+                    <i class="fas fa-weight-hanging text-white" data-fa-transform="shrink-8"></i>
+                </div>
+                <span>Attack Items</span>
+                <div class="fa-layers ms-5 mt-1">
+                    <i class="fas fa-circle icon-background"></i>
+                    <i class="fas fa-weight-hanging text-white" data-fa-transform="shrink-8"></i>
+                </div>
+            </div>
+            @foreach (var item in Items.OrderBy(x=>x.Price).Where(x => x.Attack > 0 && x.Defense == 0))
+            {
+                <div class="col-sm-6 col-xl-4">
+                    <ItemCardComponent Item="item"></ItemCardComponent>
+                </div>
+            }
+            <div class="text-center mt-5 bg-black primary-color py-2 h1 d-flex justify-content-center rounded-3 fw-bold">
+                <div class="fa-layers me-5 mt-1">
+                    <i class="fas fa-circle icon-background"></i>
+                    <i class="fas fa-shield-alt text-white" data-fa-transform="shrink-8"></i>
+                </div>
+                <span>Armor</span>
+                <div class="fa-layers ms-5 mt-1">
+                    <i class="fas fa-circle icon-background"></i>
+                    <i class="fas fa-shield-alt text-white" data-fa-transform="shrink-8"></i>
+                </div>
+            </div>
+            @foreach (var item in Items.OrderBy(x=>x.Price).Where(x => x.Defense > 0 && x.Fuel == 0))
+            {
+                <div class="col-sm-6 col-xl-4">
+                    <ItemCardComponent Item="item"></ItemCardComponent>
+                </div>
+            }
+            <div class="text-center mt-5 bg-black primary-color py-2 h1 d-flex justify-content-center rounded-3 fw-bold">
+                <div class="fa-layers me-5 mt-1">
+                    <i class="fas fa-circle icon-background"></i>
+                    <i class="fas fa-fire-alt text-white" data-fa-transform="shrink-8"></i>
+                </div>
+                <span>Fuel</span>
+                <div class="fa-layers ms-5 mt-1">
+                    <i class="fas fa-circle icon-background"></i>
+                    <i class="fas fa-fire-alt text-white" data-fa-transform="shrink-8"></i>
+                </div>
+            </div>
+            @foreach (var item in Items.OrderBy(x=>x.Price).Where(x => x.Fuel > 0 && x.Attack == 0))
+            {
+                <div class="col-sm-6 col-xl-4">
+                    <ItemCardComponent Item="item"></ItemCardComponent>
+                </div>
+            }
+            <div class="text-center mt-5 bg-black primary-color py-2 h1 d-flex justify-content-center rounded-3 fw-bold">
+                <div class="fa-layers me-5 mt-1">
+                    <i class="fas fa-circle icon-background"></i>
+                    <i class="fas fa-magic text-white" data-fa-transform="shrink-8"></i>
+                </div>
+                <span>Special Items</span>
+                <div class="fa-layers ms-5 mt-1">
+                    <i class="fas fa-circle icon-background"></i>
+                    <i class="fas fa-magic text-white" data-fa-transform="shrink-8"></i>
+                </div>
+            </div>
+            @foreach (var item in Items.OrderBy(x=>x.Price).Where(x => x.Fuel == 0 && x.Defense == 0 && x.Attack == 0 || x.Name == "ARNOLD MODE"))
+            {
+                <div class="col-sm-6 col-xl-4">
+                    <ItemCardComponent Item="item"></ItemCardComponent>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private IList<ItemResult> Items { get; set; } = new List<ItemResult>();
+    private PlayerResult Player = new PlayerResult();
+
+    private int playerId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        playerId = await _storageService.GetItemAsync<int>("PlayerId");
+
+        var itemResult = await _itemApi.FindAsync();
+        Items = itemResult.Data;
+
+        var playerResult = await _playerApi.GetAsync(playerId);
+        Player = playerResult.Data;
+
+        await base.OnInitializedAsync();
+    }
+}

@@ -1,0 +1,66 @@
+﻿@inject ILocalStorageService _storageService
+@inject IPlayerApi _playerApi
+
+@if (ShowDialog)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title text-white">Delete  <span class="primary-color">@Player.Name</span></h5>
+                    <button type="button" class="primary-color border-0 bg-dark" @onclick="Close">
+                        X
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this player? He is a loser like Jerry... But you do like him..</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-center w-100">
+                    <button type="button" class="btn rounded-pill no-btn px-5" @onclick="Close"><span class="h4">No</span></button>
+                        <button type="button" class="btn bg-dark rounded-pill px-5 ms-3 yes-btn" @onclick="DeletePerson"><span class="h4">Yes</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    [Parameter]
+    public PlayerResult? Player { get; set; }
+
+    public bool ShowBackdrop = false;
+
+    [Parameter]
+    public EventCallback OnDelete { get; set; }
+
+    private bool ShowDialog;
+
+    private async Task DeletePerson()
+    {
+        await _playerApi.DeleteAsync(Player.Id);
+        await OnDelete.InvokeAsync();
+        Close();
+    }
+
+    public void Open()
+    {
+        ShowDialog = true;
+        ShowBackdrop = true;
+        StateHasChanged();
+    }
+
+    public void Close()
+
+    {
+        ShowDialog = false;
+        ShowBackdrop = false;
+        StateHasChanged();
+    }
+}
