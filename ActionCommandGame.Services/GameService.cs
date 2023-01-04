@@ -117,7 +117,7 @@ namespace ActionCommandGame.Services
             //Check if we leveled up
             if (oldLevel < newLevel)
             {
-                levelMessages = new List<ServiceMessage>{new ServiceMessage{Code="LevelUp", Message = $"Good job! You're at level {newLevel} now!"}};
+                levelMessages = new List<ServiceMessage>{new ServiceMessage{Code="LevelUp", Message = $"Congratulations! You're at level {newLevel} now!"}};
             }
 
             //Consume fuel
@@ -283,7 +283,7 @@ namespace ActionCommandGame.Services
                     return new List<ServiceMessage>{new ServiceMessage
                     {
                         Code = "NoAttack",
-                        Message = $"You just broke {oldAttackItemName}. This was your last tool. Bummer!",
+                        Message = $"You just broke {oldAttackItemName}. This was your last weapon. Fuck!",
                         MessagePriority = MessagePriority.Warning
                     }};
                 }
@@ -334,7 +334,7 @@ namespace ActionCommandGame.Services
             }
             else
             {
-                //If we don't have defensive gear, just consume more fuel in stead.
+                //If you don't have any defensive armor, just consume more fuel in stead.
                 ConsumeFuel(player, authenticatedUserId);
             }
 
@@ -347,17 +347,17 @@ namespace ActionCommandGame.Services
 
             if (player.CurrentFuelPlayerItem == null)
             {
-                var infoText = "Playing without food is hard. You need a long time to recover. Consider buying food from the shop.";
+                var infoText = "Traveling space without fuel is hard. You need a long time to recover. Consider buying fuel in the shop.";
                 serviceMessages.Add(new ServiceMessage { Code = "NoFood", Message = infoText, MessagePriority = MessagePriority.Warning });
             }
             if (player.CurrentAttackPlayerItem == null)
             {
-                var infoText = "Playing without tools is hard. You lost extra fuel. Consider buying tools from the shop.";
+                var infoText = "Traveling space without weapons is hard. You lost extra fuel. Consider buying weapons from the shop.";
                 serviceMessages.Add(new ServiceMessage { Code = "NoTools", Message = infoText, MessagePriority = MessagePriority.Warning });
             }
             if (player.CurrentDefensePlayerItem == null)
             {
-                var infoText = "Playing without gear is hard. You lost extra fuel. Consider buying gear from the shop.";
+                var infoText = "Traveling space without armor is hard. You lost extra fuel. Consider buying armor from the shop.";
                 serviceMessages.Add(new ServiceMessage { Code = "NoGear", Message = infoText, MessagePriority = MessagePriority.Warning });
             }
 

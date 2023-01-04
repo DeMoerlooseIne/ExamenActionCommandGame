@@ -1,0 +1,65 @@
+﻿@page "/negativegameventadmin"
+@using Microsoft.AspNetCore.Authorization
+@inject INegativeGameEventApi _negativeGameEventApi
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="container">
+    <div class="d-flex flex-row mt-3">
+        <a class="btn btn-primary" href="CreateNegEvent">Create</a>
+        <a class="btn btn-secondary ms-2" href="players">Back</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">DefenseWithArmorDescription</th>
+                <th scope="col">DefenseWithoutArmorDescription</th>
+                <th scope="col">DefenseLoss</th>
+                <th scope="col">Probability</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var negEvent in NegativeGameEventResults)
+            {
+                <tr>
+                    <td>@negEvent.Name</td>
+                    <td>@negEvent.Description</td>
+                    <td>@negEvent.DefenseWithArmorDescription</td>
+                    <td>@negEvent.DefenseWithoutArmorDescription</td>
+                    <td>@negEvent.DefenseLoss</td>
+                    <td>@negEvent.Probability</td>
+                    <td>
+                        <button @onclick="() => DeleteItem(negEvent.Id)" class="btn btn-sm btn-danger rounded-pill me-1"><i class="fas fa-trash-alt"></i></button>
+                        <a href="/UpdateNegEvent/@negEvent.Id" class="btn btn-sm bg-success update-btn border-1 rounded-pill"><i class="fas fa-pen"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private IList<NegativeGameEventResult> NegativeGameEventResults { get; set; } = new List<NegativeGameEventResult>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshItems();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task DeleteItem(int id)
+    {
+        await _negativeGameEventApi.DeleteAsync(id);
+        await RefreshItems();
+    }
+
+    private async Task RefreshItems()
+    {
+        var gameEvents = await _negativeGameEventApi.Find();
+        NegativeGameEventResults = gameEvents.Data;
+    }
+
+}
+

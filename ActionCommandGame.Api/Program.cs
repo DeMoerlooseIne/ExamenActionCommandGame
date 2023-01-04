@@ -1,6 +1,7 @@
 using ActionCommandGame.Api.Installers.Extensions;
 using ActionCommandGame.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,9 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 //Initialize dbContext data
+//Use this one for the database connection + uncomment 
+//builder.Services.AddDbContext<ActionCommandGameDbContext>
+//    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("ActionCommandGame")));
 
 var dbContext = app.Services.GetRequiredService<ActionCommandGameDbContext>();
 if (dbContext.Database.IsInMemory())

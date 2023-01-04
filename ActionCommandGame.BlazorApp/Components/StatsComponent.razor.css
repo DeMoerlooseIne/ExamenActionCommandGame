@@ -1,4 +1,10 @@
-﻿.stats-body {
+﻿.stats {
     height: 35rem;
     overflow-y: scroll;
+}
+
+.progressbar {
+    height: 20px;
+    background-color: #7f8c8d;
+    color: #16a085;
 }

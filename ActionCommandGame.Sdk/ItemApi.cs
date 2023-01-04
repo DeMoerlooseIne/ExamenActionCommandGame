@@ -21,7 +21,7 @@ namespace ActionCommandGame.Sdk
         {
             var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
             var token = await _tokenStore.GetTokenAsync();
-            httpClient.AddAuthorization(token);
+            //httpClient.AddAuthorization(token);
             var route = "items";
 
             var httpResponse = await httpClient.GetAsync(route);

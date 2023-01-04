@@ -1,0 +1,63 @@
+﻿@page "/positivegameventadmin"
+@using Microsoft.AspNetCore.Authorization
+@inject IPositiveGameEventApi _positiveGameEventApi
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="container">
+    <div class="d-flex flex-row mt-3">
+        <a class="btn btn-primary" href="CreatePosEvent">Create</a>
+        <a class="btn btn-secondary ms-2" href="players">Back</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Money</th>
+                <th scope="col">Experience</th>
+                <th scope="col">Probability</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var posEvent in PositiveGameEventResults)
+            {
+                <tr>
+                    <td>@posEvent.Name</td>
+                    <td>@posEvent.Description</td>
+                    <td>@posEvent.Money</td>
+                    <td>@posEvent.Experience</td>
+                    <td>@posEvent.Probability</td>
+                    <td>
+                        <button @onclick="() => DeleteItem(posEvent.Id)" class="btn btn-sm btn-danger rounded-pill me-1"><i class="fas fa-trash-alt"></i></button>
+                        <a href="/UpdatePosEvent/@posEvent.Id" class="btn btn-sm bg-success update-btn border-1 rounded-pill"><i class="fas fa-pen"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private IList<PositiveGameEventResult> PositiveGameEventResults { get; set; } = new List<PositiveGameEventResult>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshItems();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task DeleteItem(int id)
+    {
+        await _positiveGameEventApi.DeleteAsync(id);
+        await RefreshItems();
+    }
+
+    private async Task RefreshItems()
+    {
+        var gameEvents = await _positiveGameEventApi.Find();
+        PositiveGameEventResults = gameEvents.Data;
+    }
+
+}
+

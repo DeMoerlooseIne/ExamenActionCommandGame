@@ -1,0 +1,116 @@
+﻿  @page "/CreateItem"
+  @page "/UpdateItem/{Id:int}"
+@using Microsoft.AspNetCore.Authorization
+  @inject NavigationManager _navigationManager
+  @inject IItemApi _itemApi
+  @attribute [Authorize(Roles = "Admin")]
+
+<div class="container">
+
+    <EditForm Model="Item" OnValidSubmit="HandleCreateUpdate" class="p-3 mt-3">
+        <DataAnnotationsValidator />
+        <ValidationMessage For="() => Item.Name" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Name
+            </label>
+            <InputText class="form-control" @bind-Value="Item.Name" placeholder="name" />
+        </div>
+        <ValidationMessage For="() => Item.ActionCooldownSeconds" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                ActionCooldownSeconds
+            </label>
+            <InputNumber class="form-control" @bind-Value="Item.ActionCooldownSeconds" placeholder="Cooldown Seconds" />
+        </div>
+        <ValidationMessage For="() => Item.Attack" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Attack
+            </label>
+            <InputNumber class="form-control" @bind-Value="Item.Attack" placeholder="Attack" />
+        </div>
+        <ValidationMessage For="() => Item.Defense" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Defense
+            </label>
+            <InputNumber class="form-control" @bind-Value="Item.Defense" placeholder="Defence" />
+        </div>
+        <ValidationMessage For="() => Item.Fuel" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Fuel
+            </label>
+            <InputNumber class="form-control" @bind-Value="Item.Fuel" placeholder="Fuel" />
+        </div>
+        <ValidationMessage For="() => Item.Price" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Price
+            </label>
+            <InputNumber class="form-control" @bind-Value="Item.Price" placeholder="Price" />
+        </div>
+        <ValidationMessage For="() => Item.Description" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Description
+            </label>
+            <InputTextArea class="form-control" @bind-Value="Item.Description" placeholder="Description" />
+        </div>
+
+        <ValidationMessage For="() => Item.ImageUrl" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                ImageUrl
+            </label>
+            <InputText class="form-control" @bind-Value="Item.ImageUrl" placeholder="Paste ImgUrl address here" />
+        </div>
+        <div class="d-flex flex-row align-items-center">
+            <button type="submit" class="btn change-item-btn bg-black border-white primary-color rounded-pill">
+                <i class="fas fa-user-check"></i>
+                @Title
+            </button>
+            <a href="/ItemAdmin" class="btn mb-2 ms-2 cancel-item-btn rounded-pill mt-2">
+                <i class="fas fa-user-alt-slash"></i>
+                CANCEL
+            </a>
+        </div>
+    </EditForm>
+</div>
+
+  @code {
+
+    [Parameter]
+    public int? Id { get; set; }
+
+    private string Title { get; set; } = "CREATE";
+
+    private ItemResult Item { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id != null)
+        {
+            Title = "UPDATE";
+            var result = await _itemApi.GetAsync(Id.Value);
+            Item = result.Data;
+        }
+        await base.OnInitializedAsync();
+    }
+
+    private async Task HandleCreateUpdate()
+    {
+        if (Item.Id != null && Title == "UPDATE")
+        {
+            await _itemApi.Update(Item.Id, Item);
+        }
+        else
+        {
+            await _itemApi.Create(Item);
+        }
+
+        _navigationManager.NavigateTo("/ItemAdmin");
+    }
+  }
+

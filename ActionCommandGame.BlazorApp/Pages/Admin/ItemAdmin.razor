@@ -1,0 +1,66 @@
+﻿@page "/ItemAdmin"
+@using Microsoft.AspNetCore.Authorization
+@inject IItemApi ItemApi
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="container">
+    <div class="d-flex flex-row mt-3">
+        <a class="btn btn-primary" href="CreateItem">Create</a>
+    <a class="btn btn-secondary ms-2" href="players">Back</a>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Attack</th>
+            <th scope="col">Defense</th>
+            <th scope="col">Fuel</th>
+            <th scope="col">CoolDown</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Items)
+        {
+            <tr>
+                <th scope="row"><img style="height: 80px; width: 80px" class="admin-item-img" src="@item.ImageUrl"/></th>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Attack</td>
+                <td>@item.Defense</td>
+                <td>@item.Fuel</td>
+                <td>@item.ActionCooldownSeconds</td>
+                <td>
+                    <button @onclick="() => DeleteItem(item.Id)" class="btn btn-sm btn-danger rounded-pill me-1"><i class="fas fa-trash-alt"></i></button>
+                    <a href="/UpdateItem/@item.Id" class="btn btn-sm update-btn border-1 rounded-pill"><i class="fas fa-pen"></i></a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private IList<ItemResult> Items { get; set; } = new List<ItemResult>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshItems();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task DeleteItem(int id)
+    {
+        await ItemApi.DeleteAsync(id);
+        await RefreshItems();
+    }
+
+    private async Task RefreshItems()
+    {
+        var items = await ItemApi.FindAsync();
+        Items = items.Data;
+    }
+
+}

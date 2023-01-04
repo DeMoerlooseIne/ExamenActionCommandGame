@@ -35,7 +35,7 @@
 }
 
 html, body {
-    font-family: 'Didact Gothic', sans-serif;
+    font-family: 'Impact', sans-serif;
 }
 
 h1:focus {
@@ -233,15 +233,6 @@ a, .btn-link {
     border-radius: 15px;
     box-shadow: 7px 7px 5px #cbced1, -7px -7px 5px #fff;
 }
-
-.fa-dumbbell {
-    transition: all 0.3s linear;
-}
-
-    .fa-dumbbell:hover {
-        color: chartreuse;
-        transform: scale(1.1);
-    }
 
 .wrapper .form-field input {
     width: 100%;

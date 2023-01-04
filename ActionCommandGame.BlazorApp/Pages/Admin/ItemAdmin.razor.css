@@ -1,0 +1,9 @@
+﻿.admin-item-img {
+    width: 80px;
+    height: 80px;
+}
+
+.update-btn {
+    background: green;
+    color: white;
+}

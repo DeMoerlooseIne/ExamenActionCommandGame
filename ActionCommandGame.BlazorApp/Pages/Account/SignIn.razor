@@ -65,7 +65,9 @@
     <div class="vh-100 login-background d-flex justify-content-center align-items-center">
         <div class="wrapper">
             <h2 class="fw-bolder display-6 primary-color text-center mb-2">REGISTER</h2>
-            <div class="w-100 text-center"> <i class="fas fa-dumbbell fa-fw fa-7x"></i></div>
+            <div class="w-100 text-center"> 
+                <div class="loginimage"></div>
+            </div>
             <EditForm Model="_registrationRequest" OnValidSubmit="RegisterUser" class="p-3 mt-3">
                 <audio id="player">
                     <source id="playerSource" src="" />
@@ -118,7 +120,7 @@
 
         await StorageService.SetItemAsync("Token", result.Token);
 
-
+        //if ()
         NavigationManager.NavigateTo("/players");
     }
 

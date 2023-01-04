@@ -1,0 +1,93 @@
+﻿  @page "/CreatePosEvent"
+  @page "/UpdatePosEvent/{Id:int}"
+@using Microsoft.AspNetCore.Authorization
+  @inject NavigationManager _navigationManager
+  @inject IPositiveGameEventApi _positiveGameEventApi
+  @attribute [Authorize(Roles = "Admin")]
+
+<div class="container">
+
+    <EditForm Model="PositiveGameEvent" OnValidSubmit="HandleCreateUpdate" class="p-3 mt-3">
+        <DataAnnotationsValidator />
+        <ValidationMessage For="() => PositiveGameEvent.Name" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Name
+            </label>
+            <InputText class="form-control" @bind-Value="PositiveGameEvent.Name" placeholder="name" />
+        </div>
+        <ValidationMessage For="() => PositiveGameEvent.Description" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Description
+            </label>
+            <InputText class="form-control" @bind-Value="PositiveGameEvent.Description" placeholder="Description" />
+        </div>
+        <ValidationMessage For="() => PositiveGameEvent.Experience" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Experience
+            </label>
+            <InputNumber class="form-control" @bind-Value="PositiveGameEvent.Experience" placeholder="Experience" />
+        </div>
+        <ValidationMessage For="() => PositiveGameEvent.Money" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Gains
+            </label>
+            <InputNumber class="form-control" @bind-Value="PositiveGameEvent.Money" placeholder="Gains" />
+        </div>
+        <ValidationMessage For="() => PositiveGameEvent.Probability" />
+        <div class="d-flex flex-row mb-2">
+            <label class="col-sm-2 col-form-label">
+                Probability
+            </label>
+            <InputNumber class="form-control" @bind-Value="PositiveGameEvent.Probability" placeholder="Probability" />
+        </div>
+        <div class="d-flex flex-row align-items-center">
+            <button type="submit" class="btn change-item-btn bg-black border-white primary-color rounded-pill">
+                <i class="fas fa-user-check"></i>
+                @Title
+            </button>
+            <a href="/positivegameventadmin" class="btn mb-2 ms-2 cancel-item-btn rounded-pill mt-2">
+                <i class="fas fa-user-alt-slash"></i>
+                CANCEL
+            </a>
+        </div>
+    </EditForm>
+</div>
+
+  @code {
+      [Parameter]
+    public int? Id { get; set; }
+
+    private string Title { get; set; } = "CREATE";
+
+    private PositiveGameEventResult PositiveGameEvent { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id != null)
+        {
+            Title = "UPDATE";
+            var result = await _positiveGameEventApi.GetAsync(Id.Value);
+            PositiveGameEvent = result.Data;
+        }
+        await base.OnInitializedAsync();
+    }
+
+    private async Task HandleCreateUpdate()
+    {
+        if (PositiveGameEvent.Id != null && Title == "UPDATE")
+        {
+            await _positiveGameEventApi.Update(PositiveGameEvent.Id, PositiveGameEvent);
+        }
+        else
+        {
+            await _positiveGameEventApi.Create(PositiveGameEvent);
+        }
+
+        _navigationManager.NavigateTo("/positivegameventadmin");
+    }
+  }
+
