@@ -3,8 +3,6 @@ using ActionCommandGame.Repository.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel;
 
 namespace ActionCommandGame.Repository
 {
@@ -27,6 +25,15 @@ namespace ActionCommandGame.Repository
             modelBuilder.ConfigureRelationships();
 
             base.OnModelCreating(modelBuilder);
+
+            //base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<IdentityUser>(b =>
+            //{
+            //    b.HasOne(u => u.Role)
+            //        .WithMany(r => r.Users)
+            //        .HasForeignKey(u => u.RoleId);
+            //});
         }
 
         public void Initialize()
@@ -42,6 +49,9 @@ namespace ActionCommandGame.Repository
                 NormalizedUserName = email.ToUpperInvariant(),
                 PasswordHash = passwordHash
             };
+
+            //var claim = new IdentityUserClaim<string> { ClaimType = "role", ClaimValue = "admin" };
+            //user.Claims.Add(claim);
 
             Users.Add(user);
             SaveChanges();
@@ -76,26 +86,26 @@ namespace ActionCommandGame.Repository
 
         private void GeneratePositiveGameEvents()
         {
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"prime\" dimension", Description = "The primary universe where Rick and Morty live. This dimension is similar to our own, with a recognizable Earth-like planet and similar laws of physics.", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"C-137\" dimension", Description = "A parallel universe that is nearly identical to the prime dimension, but with some minor differences.", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"Fantasy Dimension,\"" , Description = "A dimension that resembles a traditional fantasy world, complete with dragons, wizards, and other magical creatures.", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"Love Dimension,\"", Description = "A dimension that is ruled by a group of powerful, humanoid creatures who are obsessed with love and romance.", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"Boob World,\"", Description = "A dimension that is entirely inhabited by creatures with enormous, exaggerated breasts.", Probability = 1000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"prime\" dimension", Description = "The primary universe where Rick and Morty live. This dimension is similar to our own, with a recognizable Earth-like planet and similar laws of physics.", Probability = 5 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"C-137\" dimension", Description = "A parallel universe that is nearly identical to the prime dimension, but with some minor differences.", Probability = 10 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"Fantasy Dimension,\"" , Description = "A dimension that resembles a traditional fantasy world, complete with dragons, wizards, and other magical creatures.", Probability = 10 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"Love Dimension,\"", Description = "A dimension that is ruled by a group of powerful, humanoid creatures who are obsessed with love and romance.", Probability = 1 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The \"Boob World,\"", Description = "A dimension that is entirely inhabited by creatures with enormous, exaggerated breasts.", Probability = 2 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found another Portal Gun", Money = 1000, Experience = 3, Probability = 2000 }); 
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a MeeseeksBox", Money = 10000, Experience = 1, Probability = 300 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Plumbus", Money = 1, Experience = 1, Probability = 300 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Neutrino Bomb", Description = "This powerful weapon is capable of destroying entire planets, and is used by Rick on several occasions to eliminate threats to himself or his family.", Money = 10000, Experience = 10, Probability = 300 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found Gravity Boots", Money = 5, Experience = 3, Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Mind Blower", Description = "This device allows the user to erase specific memories from their own or another person's mind. It is used by Rick to erase unwanted memories, or to manipulate the memories of others.", Money = 10, Experience = 5, Probability = 800 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found The Smith Family Clone Gun", Description = "This gun creates clones of the person it is pointed at, allowing Rick and Morty to have multiple copies of themselves for various purposes.", Money = 10, Experience = 5, Probability = 800 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Time Crystal", Description = "This crystal has the ability to manipulate time, allowing the user to travel through different periods in history or to freeze time in a specific location. ", Money = 10, Experience = 5, Probability = 800 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Neutrino Bomb", Description = "This powerful weapon is capable of destroying entire planets, and is used by Rick on several occasions to eliminate threats to himself or his family.", Money = 10000, Experience = 20, Probability = 20 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found Gravity Boots", Money = 1000, Experience = 3, Probability = 1000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Mind Blower", Description = "This device allows the user to erase specific memories from their own or another person's mind. It is used by Rick to erase unwanted memories, or to manipulate the memories of others.", Money = 10, Experience = 25, Probability = 20 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found The Smith Family Clone Gun", Description = "This gun creates clones of the person it is pointed at, allowing Rick and Morty to have multiple copies of themselves for various purposes.", Money = 5000, Experience = 25, Probability = 20 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Time Crystal", Description = "This crystal has the ability to manipulate time, allowing the user to travel through different periods in history or to freeze time in a specific location. ", Money = 500, Experience = 25, Probability = 20 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Shrink Ray",Money = 100, Experience = 6, Probability = 700 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Love Potion", Description = "This potion causes the person who drinks it to fall in love with the first person they see. ", Money = 20000, Experience = 15, Probability = 650 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Mind-Reading Glasses", Money = 30, Experience = 10, Probability = 500 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Anomaly Eraser", Description = "This device allows the user to erase specific events or objects from the timeline, effectively changing the course of history.", Money = 5000, Experience = 13, Probability = 400 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Transmogrifier Gun", Description = " This gun allows the user to transform objects or living beings into different shapes or forms.", Money = 60, Experience = 15, Probability = 400 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Vindicators' Suit", Description = "These advanced suits of armor are worn by the Vindicators, a team of superheroes. The suits are equipped with various weapons and abilities, such as laser blasters and energy shields.", Money = 100, Experience = 40, Probability = 350 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Genetic Modifier", Description = "This device allows the user to alter the genetic makeup of living beings, giving them new traits or abilities.", Money = 140, Experience = 50, Probability = 300 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Love Potion", Description = "This potion causes the person who drinks it to fall in love with the first person they see. ", Money = 20000, Experience = 25, Probability = 40 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Mind-Reading Glasses", Money = 100, Experience = 10, Probability = 500 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Anomaly Eraser", Description = "This device allows the user to erase specific events or objects from the timeline, effectively changing the course of history.", Money = 5000, Experience = 35, Probability = 40 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Transmogrifier Gun", Description = " This gun allows the user to transform objects or living beings into different shapes or forms.", Money = 60, Experience = 15, Probability = 40 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Vindicators' Suit", Description = "These advanced suits of armor are worn by the Vindicators, a team of superheroes. The suits are equipped with various weapons and abilities, such as laser blasters and energy shields.", Money = 100, Experience = 40, Probability = 35 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "You found a Genetic Modifier", Description = "This device allows the user to alter the genetic makeup of living beings, giving them new traits or abilities.", Money = 3000, Experience = 50, Probability = 30 });
 
         }
 
@@ -142,29 +152,29 @@ namespace ActionCommandGame.Repository
         private void GenerateAttackItems()
         {
             Items.Add(new Item { Name = "Ray Gun", Attack = 50, Price = 50, ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/9/98/Ray_gun.png" });
-            Items.Add(new Item { Name = "Mind Blowers", Attack = 300, Price = 300 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/9/98/Rm.s03e08.s05.png" });
+            Items.Add(new Item { Name = "Mind Blowers", Attack = 250, Price = 250 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/9/98/Rm.s03e08.s05.png" });
             Items.Add(new Item { Name = "Arsenal of Guns", Attack = 500, Price = 500, ImageUrl = "https://i.pinimg.com/originals/2a/36/da/2a36da3ecae3c154286bd33e12d3749b.jpg" });
-            Items.Add(new Item { Name = "Laser Axe", Attack = 5000, Price = 150, ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeLAO4tY0yXN4dIPbfno3LTnQakyFJM4qFrg&usqp=CAU" });
-            Items.Add(new Item { Name = "RobotArms with Weapons", Attack = 50, Price = 1000000, ImageUrl = "https://imagesvc.meredithcorp.io/v3/mm/image?q=60&c=sc&rect=4%2C24%2C1997%2C1021&poi=%5B1060%2C270%5D&w=2000&h=1000&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F6%2F2022%2F11%2F18%2FRick-and-Morty-season-6-111822-2.jpg" });
+            Items.Add(new Item { Name = "Laser Axe", Attack = 1500, Price = 1500, ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeLAO4tY0yXN4dIPbfno3LTnQakyFJM4qFrg&usqp=CAU" });
+            Items.Add(new Item { Name = "RobotArms with Weapons", Attack = 10000, Price = 10000, ImageUrl = "https://imagesvc.meredithcorp.io/v3/mm/image?q=60&c=sc&rect=4%2C24%2C1997%2C1021&poi=%5B1060%2C270%5D&w=2000&h=1000&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F6%2F2022%2F11%2F18%2FRick-and-Morty-season-6-111822-2.jpg" });
         }
 
         private void GenerateDefenseItems()
         {
-            Items.Add(new Item { Name = "Purge Armor", Defense = 20, Price = 20 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/8/82/Suits_HQ.png" });
-            Items.Add(new Item { Name = "Awesome Armor", Defense = 150, Price = 200 , ImageUrl = "https://consequence.net/wp-content/uploads/2020/04/rick-and-morty-season-4-the-other-five-trailer-second-half-adult-swim.png" });
-            Items.Add(new Item { Name = "Love Potion", Defense = 500, Price = 1000 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/3/35/S1e6_love_potion.png" });
-            Items.Add(new Item { Name = "Mister Meeseeks", Defense = 2000, Price = 10000, ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/6/6c/MeeseeksHQ.png" });
-            Items.Add(new Item { Name = "Neutrino Bomb", Defense = 2000, Price = 10000 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/c/c6/E8879297-B15A-4BF2-A246-AC19E057D482.jpeg" });
-            Items.Add(new Item { Name = "Portal Gun", Defense = 20000, Price = 10000, ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/5/55/Portal_gun.png" });
+            Items.Add(new Item { Name = "Purge Armor", Defense = 50, Price = 50 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/8/82/Suits_HQ.png" });
+            Items.Add(new Item { Name = "Awesome Armor", Defense = 100, Price = 100 , ImageUrl = "https://consequence.net/wp-content/uploads/2020/04/rick-and-morty-season-4-the-other-five-trailer-second-half-adult-swim.png" });
+            Items.Add(new Item { Name = "Love Potion", Defense = 250, Price = 250 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/3/35/S1e6_love_potion.png" });
+            Items.Add(new Item { Name = "Mister Meeseeks", Defense = 500, Price = 500, ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/6/6c/MeeseeksHQ.png" });
+            Items.Add(new Item { Name = "Neutrino Bomb", Defense = 1000, Price = 1000 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/c/c6/E8879297-B15A-4BF2-A246-AC19E057D482.jpeg" });
+            Items.Add(new Item { Name = "Portal Gun", Defense = 10000, Price = 10000, ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/5/55/Portal_gun.png" });
         }
 
         private void GenerateFoodItems()
         {
-            Items.Add(new Item { Name = "Rick's Alcohol", ActionCooldownSeconds = 50, Fuel = 4, Price = 8, ImageUrl = "https://www.looper.com/img/gallery/what-does-rick-usually-drink-in-rick-and-morty/intro-1606344204.jpg" });
-            Items.Add(new Item { Name = "Microverse Batery", ActionCooldownSeconds = 45, Fuel = 5, Price = 10 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/2/25/S2e6_Microverse_Battery.png" });
-            Items.Add(new Item { Name = "IceCream", ActionCooldownSeconds = 30, Fuel = 30, Price = 300, ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzOjp9zr4yKJmlvc6S3ns7lDOK3UlzcsI3AQ&usqp=CAU" });
-            Items.Add(new Item { Name = "EyeHoles", ActionCooldownSeconds = 25, Fuel = 100, Price = 500 , ImageUrl = "https://www.geekalerts.com/u/Rick-and-Morty-Eyehole-Chocolate-Truffles.jpg" });
-            Items.Add(new Item { Name = "Pickle Rick", ActionCooldownSeconds = 25, Fuel = 100, Price = 500 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/4/41/Pickle_rick_transparent_edgetrimmed.png" });
+            Items.Add(new Item { Name = "Rick's Alcohol", ActionCooldownSeconds = 10, Fuel = 10, Price = 50, ImageUrl = "https://www.looper.com/img/gallery/what-does-rick-usually-drink-in-rick-and-morty/intro-1606344204.jpg" });
+            Items.Add(new Item { Name = "Microverse Batery", ActionCooldownSeconds = 10, Fuel = 20, Price = 100 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/2/25/S2e6_Microverse_Battery.png" });
+            Items.Add(new Item { Name = "IceCream", ActionCooldownSeconds = 10, Fuel = 60, Price = 300, ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzOjp9zr4yKJmlvc6S3ns7lDOK3UlzcsI3AQ&usqp=CAU" });
+            Items.Add(new Item { Name = "EyeHoles", ActionCooldownSeconds = 15, Fuel = 100, Price = 500 , ImageUrl = "https://www.geekalerts.com/u/Rick-and-Morty-Eyehole-Chocolate-Truffles.jpg" });
+            Items.Add(new Item { Name = "Pickle Rick", ActionCooldownSeconds = 20, Fuel = 100, Price = 1000 , ImageUrl = "https://static.wikia.nocookie.net/rickandmorty/images/4/41/Pickle_rick_transparent_edgetrimmed.png" });
 #if DEBUG
             //Items.Add(new Item { Name = "Developer Food", ActionCooldownSeconds = 1, Fuel = 1000, Price = 1 });
 #endif
