@@ -23,7 +23,7 @@
     <div class="wrapper createupdateplayer">
         <div class="text-center mt-3">
             <DropdownComponent TItem="string" OnSelected="@OnSelected">
-                <InitialTip>Select Player's Image</InitialTip>
+                <InitialTip> <div class="text-white">Select Player's Image</div></InitialTip>
                 <ChildContent>
                     <DropdownListItemComponent Item="@imageList[0]"><img style="height: 150px; width: 170px" src="https://helios-i.mashable.com/imagery/articles/04b5Pjp3N03vQQuyYLz6XRa/hero-image.fill.size_1200x1200.v1623364951.png"  /></DropdownListItemComponent>
                     <DropdownListItemComponent Item="@imageList[1]"><img style="height: 150px; width: 170px" src="https://static1.srcdn.com/wordpress/wp-content/uploads/2017/04/Rick-and-Morty-Mr.-Meeseeks.jpg" /></DropdownListItemComponent>
@@ -43,12 +43,12 @@
             <DataAnnotationsValidator />
             <ValidationMessage For="() => Player.Name" />
             <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
+                <span class="fa-solid fa-user-astronaut"></span>
                 <InputText @bind-Value="Player.Name" placeholder="name" />
             </div>
             <ValidationMessage For="() => Player.Money" />
             <div class="form-field d-flex align-items-center">
-                <span class="fas fa-fist-raised"></span>
+                <span class="fa-solid fa-sack-dollar"></span>
                 <InputNumber @bind-Value="Player.Money" placeholder="money" />
             </div>
             <ValidationMessage For="() => Player.Experience" />
@@ -58,11 +58,11 @@
             </div>
             <div class="text-center fs-6 flex-column d-flex w-100">
                 <button type="submit" class="btn change-player-btn bg-black border-white primary-color rounded-pill w-100">
-                    <i class="fa-solid fa-user-check"></i>
+                    <i class="fa-solid fa-person-circle-plus"></i>
                     @Title
                 </button>
                 <a href="/players" class="btn cancel-player-btn rounded-pill mt-2 w-100">
-                    <i class="fa-solid fa-user-large-slash"></i>
+                        <i class="fa-solid fa-person-circle-xmark"></i>
                     CANCEL
                 </a>
             </div>
