@@ -8,24 +8,13 @@
     }
     if (type === "error") {
         Swal.fire(
-            "Something went wrong",
+            "It didn't work.",
             message,
             "error"
         );
     }
 }
 
-//window.PlaySound = function() {
-//    document.getElementById('sound').play();
-//}
-
-//window.PlaySound = function() {
-//    document.getElementById('WhoIsIt').play();
-//}
-
-//window.PlaySound = function() {
-//    document.getElementById('GameOver').play();
-//}
 
 window.PlayAudioFile = (src) => {
     var audio = document.getElementById('player');

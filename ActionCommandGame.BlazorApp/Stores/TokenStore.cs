@@ -16,7 +16,7 @@ namespace ActionCommandGame.BlazorApp.Stores
 
         public async Task<string> GetTokenAsync()
         {
-            return await _localStorage.GetItemAsStringAsync(TokenName);
+            return await _localStorage.GetItemAsync<string>("Token");
         }
 
         public async Task SaveTokenAsync(string token)

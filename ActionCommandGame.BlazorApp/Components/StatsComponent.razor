@@ -1,9 +1,15 @@
 ﻿<div class="card shadow">
     <div class="card-header text-center h2 bg-dark text-white">
         <img class="rounded-circle" style="height: 120px; width: 60px" src="/Images/@Player.ImageName"/>
-        <i class="far fa-list-alt icon-background"></i>
+       <i class="fa-solid fa-address-card"></i>
         Stats
     </div>
+
+    <style>
+        .stats {
+            background: rgba(0, 0, 0, 0.7);
+        }
+    </style>
 
     <div class="card-body stats scroll fw-bold">
         <div>
@@ -16,19 +22,20 @@
             <li>Remaining : @($"{Player.RemainingFuel}/{Player.TotalFuel}")</li>
             <li><hr></li>
         </ul>
-        <progress value="@Player.RemainingAttack" max="@Player.TotalAttack"></progress>
+        <progress class="progressbar" value="@Player.RemainingAttack" max="@Player.TotalAttack"></progress>
         <ul class="list-unstyled">
             <li>Attack : <span class="primary-color fw-bolder">@Player.CurrentAttackName</span></li>
             <li>Remaining : @($"{Player.RemainingAttack}/{Player.TotalAttack}")</li>
             <li><hr></li>
         </ul>
-        <progress value="@Player.RemainingDefense" max="@Player.TotalDefense"></progress>
+        <progress class="progressbar" value="@Player.RemainingDefense" max="@Player.TotalDefense"></progress>
         <ul class="list-unstyled">
             <li>Defense : <span class="primary-color fw-bolder">@Player.CurrentDefenseName</span></li>
             <li>Remaining : @($"{Player.RemainingDefense}/{Player.TotalDefense}")</li>
             <li><hr></li>
         </ul>
         <div>
+            <progress class="progressbar" value="@Player.Money" max="10000"></progress>
             Money: @Player.Money
             <hr>
         </div>

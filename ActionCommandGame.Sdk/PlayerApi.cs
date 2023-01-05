@@ -11,20 +11,20 @@ namespace ActionCommandGame.Sdk
 	public class PlayerApi : IPlayerApi
 	{
 		private readonly IHttpClientFactory _httpClientFactory;
-		private readonly ILocalStorageService _localStorageService;
+        private readonly ITokenStore _tokenStore;
 
-		public PlayerApi(IHttpClientFactory httpClientFactory, ILocalStorageService localStorageService)
+		public PlayerApi(IHttpClientFactory httpClientFactory, ITokenStore tokenStore)
 		{
 			_httpClientFactory = httpClientFactory;
-			_localStorageService = localStorageService;
+			_tokenStore = tokenStore;
 		}
 
-		public async Task<ServiceResult<PlayerResult>> GetAsync(int id)
+            public async Task<ServiceResult<PlayerResult>> GetAsync(int id)
 		{
 			var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
-			var token = await _localStorageService.GetItemAsync<string>("Token");
+            var token = await _tokenStore.GetTokenAsync();
 
-			httpClient.AddAuthorization(token);
+            httpClient.AddAuthorization(token);
 			var route = $"players/{id}";
 
 			var httpResponse = await httpClient.GetAsync(route);
@@ -44,9 +44,9 @@ namespace ActionCommandGame.Sdk
 		public async Task<ServiceResult<IList<PlayerResult>>> Find(PlayerFilter filter)
 		{
 			var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
-			var token = await _localStorageService.GetItemAsync<string>("Token");
+            var token = await _tokenStore.GetTokenAsync();
 
-			httpClient.AddAuthorization(token);
+            httpClient.AddAuthorization(token);
 			var route = "players";
 
 			if (filter.FilterUserPlayers.HasValue && filter.FilterUserPlayers.Value)
@@ -71,9 +71,9 @@ namespace ActionCommandGame.Sdk
 		public async Task<ServiceResult<PlayerResult>> Create(PlayerResult playerResult)
 		{
 			var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
-			var token = await _localStorageService.GetItemAsync<string>("Token");
+            var token = await _tokenStore.GetTokenAsync();
 
-			httpClient.AddAuthorization(token);
+            httpClient.AddAuthorization(token);
 			var route = "players";
 
 			var httpResponse = await httpClient.PostAsJsonAsync(route, playerResult);
@@ -93,9 +93,9 @@ namespace ActionCommandGame.Sdk
 		public async Task<ServiceResult<PlayerResult>> Update(int id, PlayerResult playerResult)
 		{
 			var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
-			var token = await _localStorageService.GetItemAsync<string>("Token");
+            var token = await _tokenStore.GetTokenAsync();
 
-			httpClient.AddAuthorization(token);
+            httpClient.AddAuthorization(token);
 			var route = $"players/{id}";
 
 			var httpResponse = await httpClient.PutAsJsonAsync(route, playerResult);
@@ -115,9 +115,9 @@ namespace ActionCommandGame.Sdk
 		public async Task<ServiceResult<PlayerResult>> DeleteAsync(int id)
 		{
 			var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
-			var token = await _localStorageService.GetItemAsync<string>("Token");
+            var token = await _tokenStore.GetTokenAsync();
 
-			httpClient.AddAuthorization(token);
+            httpClient.AddAuthorization(token);
 			var route = $"players/{id}";
 
 			var httpResponse = await httpClient.DeleteAsync(route);

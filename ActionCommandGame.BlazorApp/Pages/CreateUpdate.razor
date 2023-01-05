@@ -21,12 +21,6 @@
     }</style>
     </video>
     <div class="wrapper createupdateplayer">
-        <style> .createupdateplayer{ position: fixed; } </style>
-        <div class="w-100 text-center">
-            <a href="/players">
-                <div class="image"></div>
-            </a>
-        </div>
         <div class="text-center mt-3">
             <DropdownComponent TItem="string" OnSelected="@OnSelected">
                 <InitialTip>Select Player's Image</InitialTip>
@@ -64,11 +58,11 @@
             </div>
             <div class="text-center fs-6 flex-column d-flex w-100">
                 <button type="submit" class="btn change-player-btn bg-black border-white primary-color rounded-pill w-100">
-                    <i class="fas fa-user-check"></i>
+                    <i class="fa-solid fa-user-check"></i>
                     @Title
                 </button>
                 <a href="/players" class="btn cancel-player-btn rounded-pill mt-2 w-100">
-                    <i class="fas fa-user-alt-slash"></i>
+                    <i class="fa-solid fa-user-large-slash"></i>
                     CANCEL
                 </a>
             </div>

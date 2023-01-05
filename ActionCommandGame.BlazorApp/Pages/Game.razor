@@ -15,21 +15,26 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
+
+    .shopItems {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
 </style>
 
 <div @onclick="PortalTwirl" class="vh-100 game-background">
 
     <div class="d-flex w-100 justify-content-between">
         <a href="/players" class="btn change-player-btn fw-bolder border-white primary-color ms-3 mt-3 rounded-pill">
-            Change Player
-            <i class="fas fa-people-arrows ms-1"></i>
+            CHANGE PLAYER
+            <i class="fa-solid fa-people-arrows"></i>
         </a>
         <audio id="player">
             <source id="playerSource" src="" />
         </audio>
         <button @onclick="Logout" class="btn logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill">
             LOGOUT
-            <i class="fas fa-sign-out-alt ms-1"></i>
+            <i class="fa-solid fa-person-walking-arrow-right"></i>
         </button>
     </div>
     <div class="container">
@@ -39,7 +44,7 @@
                     <audio id="player">
                         <source id="playerSource" src="" />
                     </audio>
-                    <button @onclick="Travel" class="btn rounded-circle portal-button btn-dark">
+                    <button @onclick="Travel" class="btn rounded-circle btn-dark">
                         <img class="portal @PortalTwirlCss" src="images/Portal.png"/>
                     </button>
                 </div>
@@ -91,22 +96,22 @@
                     <LeaderboardComponent OrderedPlayers="_orderedPlayers" />
                 </div>
                 <div>
-                    <div class="card text-center shadow fw-bold">
+                    <div class="card text-center shadow ">
                         <div class="card-header h2 bg-dark text-white">
-                            <a href="/shop"><i class="fas fa-cart-arrow-down icon-background shop-icon"></i></a>
+                            <a href="/shop"><i class="fa-solid fa-cart-plus"></i></a>
                             Shop
                         </div>
                         @if (!PlayerItems.Any())
                         {
-                            <div class="d-flex playerItems-card align-items-center text-center">
+                            <div class="d-flex playerItems-card align-items-center text-center shopItems text-white">
                                 <p>
-                                    Click on the shopping cart to buy some cool stuff
+                                    Click on the shopping cart to buy what you need!
                                 </p>
                             </div>
                         }
                         else
                         {
-                            <ul class="list-group list-group-flush scroll playerItems-card ">
+                            <ul class="list-group list-group-flush scroll playerItems-card shopItems">
                                 @foreach (var playerItem in PlayerItems)
                                 {
                                     <PlayerItemComponent IsPlayerItemDeleted="RefreshPlayeritems" PlayerItem="playerItem"></PlayerItemComponent>

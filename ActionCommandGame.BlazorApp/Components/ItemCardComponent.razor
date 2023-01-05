@@ -2,22 +2,25 @@
 @inject ILocalStorageService _storageService
 @inject IJSRuntime _jsRuntime
 
-<div class="card align-items-center flex-row flex-sm-column flex-md-row p-3 m-2">
-    <audio id="player">
-        <source id="playerSource" src="" />
-    </audio>
+<style>
+    .card-item {
+        background: rgba(0, 0, 0, 0.7);
+    }
+</style>
+
+<div class="card align-items-center card-item flex-row flex-sm-column flex-md-row p-3 m-2">
     <div class="card-body">
-        <h5 class="mt-0 fw-bold mb-2">@Item.Name</h5>
-        <p class="fst-italic text-muted mb-0 small">@Item.Description</p>
+        <h5 class="mt-0 fw-bold mb-2 text-white">@Item.Name</h5>
+        <p class="fst-italic text-muted mb-0 small text-white">@Item.Description</p>
         <div class="d-flex flex-row">
             <div>
                 <audio id="player">
                     <source id="playerSource" src="" />
                 </audio>
-                <button @onclick="() => Buy(Item.Id)" class="btn btn-outline-dark rounded-pill">BUY</button>
+                <button @onclick="() => Buy(Item.Id)" class="btn btn-outline-light rounded-pill text-white">BUY</button>
             </div>
             <div class="ms-3">
-                <h6 class="fw-bold my-2"> Price: <span class="primary-color">@Item.Price</span></h6>
+                <h6 class="fw-bold my-2 text-white"> Price: <span class="primary-color">@Item.Price</span></h6>
             </div>
         </div>
     </div>

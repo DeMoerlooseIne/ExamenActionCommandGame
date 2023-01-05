@@ -13,9 +13,9 @@
         <p class="card-text">Money: @Player.Money</p>
         <p class="card-text">Experience: @Player.Experience</p>
         <div class="mt-4">
-            <button @onclick="() => SetPlayerId(Player.Id)" class="btn fw-bolder play-btn me-1 rounded-pill">Play <i class="fas fa-play play-icon"></i></button>
-            <button @onclick="ShowDeleteComponent" class="btn btn-sm btn-danger rounded-pill me-1"><i class="fas fa-trash-alt"></i></button>
-            <a href="/update/@Player.Id" class="btn btn-sm update-btn border-1 rounded-pill"><i class="fas fa-user-edit"></i></a>
+            <button @onclick="() => SetPlayerId(Player.Id)" class="btn fw-bolder play-btn me-1 rounded-pill">Play <i class="fa-solid fa-circle-play"></i></button>
+            <button @onclick="ShowDeleteComponent" class="btn btn-sm btn-danger rounded-pill me-1"><i class="fa-solid fa-trash"></i></button>
+            <a href="/update/@Player.Id" class="btn btn-sm update-btn border-1 rounded-pill"><i class="fa-solid fa-user-pen"></i></a>
         </div>
     </div>
 </div>

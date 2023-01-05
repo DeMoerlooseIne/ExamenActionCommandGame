@@ -10,22 +10,13 @@
 @inject TokenAuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime _jsRuntime
 
-<style>
-    body {
-        background-image: url(../images/backgrounds/wallpaper3.jpg);
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-</style>
 
 @if (isLoginShowing)
 {
     <div class="vh-100 login-background d-flex flex-column justify-content-center align-items-center">
         <div class="typewriter mb-5 rounded-3">
             <h3 class="primary-color fw-bold display-4">
-                <span><img class="login-span" src="images/Rick_Sanchez.png" /></span>
-                Are you ready to play ?
-                <span><img class="login-span" src="images/Rick_Sanchez.png" /></span>
+                <img class="login-span" src="images/banner1.png" />
             </h3>
         </div>
         <div class="wrapper">
@@ -40,13 +31,13 @@
                 <DataAnnotationsValidator />
                 <ValidationMessage For="() => _signInRequest.Email" />
                 <div class="form-field d-flex align-items-center">
-                    <span class="far fa-user"></span>
+                    <i class="fa-solid fa-at"></i>
                     <InputText @bind-Value="_signInRequest.Email" type="text" name="userName" id="userName" placeholder="Username" />
                 </div>
 
                 <ValidationMessage For="() => _signInRequest.Password" />
                 <div class="form-field d-flex align-items-center">
-                    <span class="fas fa-key"></span>
+                    <i class="fa-solid fa-key"></i>
                     <InputText @bind-Value="_signInRequest.Password" type="password" name="password" id="pwd" placeholder="Password" />
                 </div>
                 <div>
@@ -75,13 +66,13 @@
                 <DataAnnotationsValidator />
                 <ValidationMessage For="() => _registrationRequest.Email" />
                 <div class="form-field d-flex align-items-center">
-                    <span class="far fa-user"></span>
+                         <i class="fa-solid fa-at"></i>
                     <InputText @bind-Value="_registrationRequest.Email" type="text" name="userName" id="userName" placeholder="Username" />
                 </div>
 
                 <ValidationMessage For="() => _registrationRequest.Password" />
                 <div class="form-field d-flex align-items-center">
-                    <span class="fas fa-key"></span>
+                    <i class="fa-solid fa-key"></i>
                     <InputText @bind-Value="_registrationRequest.Password" type="password" name="password" id="pwd" placeholder="Password" />
                 </div>
                 <button type="submit" class="btn login-btn">Register</button>
@@ -139,7 +130,6 @@
         {
             await _jsRuntime.InvokeVoidAsync("ShowSwal", "error",
                 "I don't know you, get out, motherfucker!!!!");
-            await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/who--the-fuck-are-you.mp3");
         }
     }
 

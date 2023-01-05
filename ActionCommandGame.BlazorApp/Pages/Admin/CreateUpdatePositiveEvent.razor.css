@@ -1,17 +1,17 @@
 ﻿.create-update-btn {
     text-decoration: none;
     font-size: 2.5rem;
-    color: orange;
+    color: chartreuse;
     transition: all 0.2s linear;
 }
 
 .change-item-btn:hover {
     color: white;
-    background: orange;
+    background: chartreuse;
 }
 
 .cancel-item-btn {
-    background: orange;
+    background: chartreuse;
 }
 
 .cancel-item-btn:hover {
