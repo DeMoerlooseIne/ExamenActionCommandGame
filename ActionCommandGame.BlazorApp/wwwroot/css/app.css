@@ -46,8 +46,8 @@ a, .btn-link {
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: chartreuse;
+    border-color: chartreuse;
 }
 
 .content {
@@ -153,7 +153,7 @@ a, .btn-link {
 }
 
 .scroll::-webkit-scrollbar-thumb {
-    background-color: #e78632;
+    background-color: chartreuse;
     border-radius: 10px;
 }
 
@@ -313,6 +313,7 @@ a, .btn-link {
     padding: 10px 15px 10px 10px
 }
 
+
 select {
     width: 100%;
     display: block;
@@ -386,7 +387,7 @@ select {
         z-index: 1;
         margin-top: 40px;
         padding: 0;
-        background-color: #595959;
+        background-color: chartreuse;
     }
 
         .drop-down .select-list li {
@@ -399,7 +400,7 @@ select {
                 min-width: 280px;
                 width: 100%;
                 padding: 5px 15px 5px 35px;
-                background-color: #595959;
+                background-color: chartreuse;
                 background-position: left 10px center;
                 background-repeat: no-repeat;
                 font-size: 16px;
@@ -544,7 +545,7 @@ select {
 
 .progressbar {
     height: 10px;
-    background-color: #7f8c8d;
+    background-color: chartreuse;
     color: #16a085;
 }
 
