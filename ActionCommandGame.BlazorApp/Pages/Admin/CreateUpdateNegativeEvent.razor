@@ -3,8 +3,8 @@
 @using Microsoft.AspNetCore.Authorization
   @inject NavigationManager _navigationManager
   @inject INegativeGameEventApi _negativeGameEventApi
-  @attribute [Authorize(Roles = "Admin")]
-
+@*  @attribute [Authorize(Roles = "Admin")]
+*@
 <div class="container">
     <EditForm Model="NegativeGameEventResult" OnValidSubmit="HandleCreateUpdate" class="p-3 mt-3">
         <DataAnnotationsValidator />

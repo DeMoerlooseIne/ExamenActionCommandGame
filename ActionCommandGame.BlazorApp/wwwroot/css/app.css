@@ -963,3 +963,85 @@ body .modal-dialog {
     position: fixed;
     background: rgba(0, 0, 0, 0.5);
 }
+
+/*----------------------------adminitem---------------------------*/
+
+.admin-item-img {
+    width: 80px;
+    height: 80px;
+}
+
+.update-btn {
+    background: green;
+    color: white;
+}
+
+
+/*----------------------------admincreatepositive---------------------------*/
+
+.create-update-btn {
+    text-decoration: none;
+    font-size: 2.5rem;
+    color: chartreuse;
+    transition: all 0.2s linear;
+}
+
+.change-item-btn:hover {
+    color: white;
+    background: chartreuse;
+}
+
+.cancel-item-btn {
+    background: chartreuse;
+}
+
+    .cancel-item-btn:hover {
+        color: white;
+    }
+
+
+/*----------------------------admincreatenegative---------------------------*/
+
+.create-update-btn {
+    text-decoration: none;
+    font-size: 2.5rem;
+    color: chartreuse;
+    transition: all 0.2s linear;
+}
+
+.change-item-btn:hover {
+    color: white;
+    background: chartreuse;
+}
+
+.cancel-item-btn {
+    background: chartreuse;
+}
+
+    .cancel-item-btn:hover {
+        color: white;
+    }
+
+
+/*----------------------------admincreateitem---------------------------*/
+
+.create-update-btn {
+    text-decoration: none;
+    font-size: 2.5rem;
+    color: chartreuse;
+    transition: all 0.2s linear;
+}
+
+.change-item-btn:hover {
+    color: white;
+    background: chartreuse;
+}
+
+.cancel-item-btn {
+    background: chartreuse;
+}
+
+    .cancel-item-btn:hover {
+        color: white;
+    }
+

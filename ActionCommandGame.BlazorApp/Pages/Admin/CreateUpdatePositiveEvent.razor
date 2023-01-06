@@ -1,10 +1,10 @@
-﻿  @page "/CreatePosEvent"
-  @page "/UpdatePosEvent/{Id:int}"
+﻿@page "/CreatePosEvent"
+@page "/UpdatePosEvent/{Id:int}"
 @using Microsoft.AspNetCore.Authorization
-  @inject NavigationManager _navigationManager
-  @inject IPositiveGameEventApi _positiveGameEventApi
-  @attribute [Authorize(Roles = "Admin")]
-
+@inject NavigationManager _navigationManager
+@inject IPositiveGameEventApi _positiveGameEventApi
+@*  @attribute [Authorize(Roles = "Admin")]
+*@
 <div class="container">
 
     <EditForm Model="PositiveGameEvent" OnValidSubmit="HandleCreateUpdate" class="p-3 mt-3">
@@ -33,9 +33,9 @@
         <ValidationMessage For="() => PositiveGameEvent.Money" />
         <div class="d-flex flex-row mb-2">
             <label class="col-sm-2 col-form-label">
-                Gains
+                Money
             </label>
-            <InputNumber class="form-control" @bind-Value="PositiveGameEvent.Money" placeholder="Gains" />
+            <InputNumber class="form-control" @bind-Value="PositiveGameEvent.Money" placeholder="Money" />
         </div>
         <ValidationMessage For="() => PositiveGameEvent.Probability" />
         <div class="d-flex flex-row mb-2">

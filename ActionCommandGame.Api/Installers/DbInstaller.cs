@@ -15,8 +15,8 @@ namespace ActionCommandGame.Api.Installers
             {
                 options.UseLoggerFactory(ConsoleLoggerFactory);
                 options.EnableSensitiveDataLogging();
-                options.UseInMemoryDatabase("InMemoryDb");
-            }, ServiceLifetime.Singleton, ServiceLifetime.Singleton);
+                options.UseSqlServer(@"server = LAPTOP-ID44330L\VIVES; database=RickAndMortyActionCommandGame; Trusted_Connection=True; TrustServerCertificate=True; Encrypt=False", b => b.MigrationsAssembly("ActionCommandGame.Api")) ;
+            });
         }
     }
 }

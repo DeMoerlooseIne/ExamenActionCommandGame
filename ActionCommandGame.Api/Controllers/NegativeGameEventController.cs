@@ -14,7 +14,7 @@ namespace ActionCommandGame.Api.Controllers
             _negativeGameEventService = negativeGameEventService;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet("negativeGameEvents/{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -22,7 +22,7 @@ namespace ActionCommandGame.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet("negativeGameEvents")]
         public async Task<IActionResult> Find()
         {
@@ -30,7 +30,7 @@ namespace ActionCommandGame.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost("negativeGameEvents")]
         public async Task<IActionResult> Create(NegativeGameEventResult negativeGameEventResult)
         {
@@ -38,7 +38,7 @@ namespace ActionCommandGame.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("negativeGameEvents/{id}")]
         public async Task<IActionResult> Update(int id, NegativeGameEventResult negativeGameEventResult)
         {
@@ -46,7 +46,7 @@ namespace ActionCommandGame.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("negativeGameEvents/{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

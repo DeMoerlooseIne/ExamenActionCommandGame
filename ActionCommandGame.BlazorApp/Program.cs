@@ -9,8 +9,7 @@ using Syncfusion.Blazor;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
+using ActionCommandGame.Sdk;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -27,14 +26,14 @@ builder.Services.AddSingleton(appSettings);
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped<ITokenStore, TokenStore>();
+builder.Services.AddScoped<IPositiveGameEventApi, PositiveGameEventApi>();
+builder.Services.AddScoped<INegativeGameEventApi, NegativeGameEventApi>();
 
 //Add Authorization
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<TokenAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(provider => 
-   provider.GetRequiredService<TokenAuthenticationStateProvider>());
-
-//Services.AddScoped(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
+    provider.GetRequiredService<TokenAuthenticationStateProvider>());
 
 //Register the Sdk api classes
 if (!string.IsNullOrWhiteSpace(appSettings.ApiBaseUrl))

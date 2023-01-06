@@ -1,7 +1,16 @@
 ﻿@page "/ItemAdmin"
 @using Microsoft.AspNetCore.Authorization
 @inject IItemApi ItemApi
-@attribute [Authorize(Roles = "Admin")]
+@*@attribute [Authorize(Roles = "Admin")]*@
+
+<style>
+    body {
+        background-image: url(../images/backgrounds/wallpaper5.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        
+    }
+</style>
 
 <div class="container">
     <div class="d-flex flex-row mt-3">

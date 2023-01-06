@@ -2,8 +2,10 @@ using ActionCommandGame.Api.Installers.Extensions;
 using ActionCommandGame.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 var corsPolicyName = "CorsName";
 
@@ -24,11 +26,16 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 //Initialize dbContext data
+using var scope = app.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetRequiredService<ActionCommandGameDbContext>();
+
 //Use this one for the database connection + uncomment 
 //builder.Services.AddDbContext<ActionCommandGameDbContext>
 //    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("ActionCommandGame")));
 
-var dbContext = app.Services.GetRequiredService<ActionCommandGameDbContext>();
+//Run once to migrate DBContent from InMemory to SQL
+//dbContext.Initialize();
+
 if (dbContext.Database.IsInMemory())
 {
     dbContext.Initialize();

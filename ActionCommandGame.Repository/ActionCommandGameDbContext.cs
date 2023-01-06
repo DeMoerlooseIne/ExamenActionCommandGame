@@ -3,6 +3,7 @@ using ActionCommandGame.Repository.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace ActionCommandGame.Repository
 {
@@ -25,16 +26,8 @@ namespace ActionCommandGame.Repository
             modelBuilder.ConfigureRelationships();
 
             base.OnModelCreating(modelBuilder);
-
-            //base.OnModelCreating(modelBuilder);
-
-            //modelBuilder.Entity<IdentityUser>(b =>
-            //{
-            //    b.HasOne(u => u.Role)
-            //        .WithMany(r => r.Users)
-            //        .HasForeignKey(u => u.RoleId);
-            //});
         }
+
 
         public void Initialize()
         {
@@ -65,17 +58,17 @@ namespace ActionCommandGame.Repository
                 PasswordHash = passwordHashRick
             };
 
-            var adminRole = new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" };
-            var userRole = new IdentityRole() { Name = "User", NormalizedName = "USER" };
+            //var adminRole = new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" };
+            //var userRole = new IdentityRole() { Name = "User", NormalizedName = "USER" };
 
-            Roles.Add(adminRole);
-            Roles.Add(userRole);
+            //Roles.Add(adminRole);
+            //Roles.Add(userRole);
 
-            Users.Add(userAdmin);
+            //Users.Add(userAdmin);
 
-            UserRoles.Add(new IdentityUserRole<string>() { RoleId = adminRole.Id, UserId = userAdmin.Id });
-            UserRoles.Add(new IdentityUserRole<string>() { RoleId = userRole.Id, UserId = userAdmin.Id });
-            UserRoles.Add(new IdentityUserRole<string>() { RoleId = userRole.Id, UserId = user.Id });
+            //UserRoles.Add(new IdentityUserRole<string>() { RoleId = adminRole.Id, UserId = userAdmin.Id });
+            //UserRoles.Add(new IdentityUserRole<string>() { RoleId = userRole.Id, UserId = userAdmin.Id });
+            //UserRoles.Add(new IdentityUserRole<string>() { RoleId = userRole.Id, UserId = user.Id });
 
             SaveChanges();
 
