@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using ActionCommandGame.Sdk;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -30,10 +32,14 @@ builder.Services.AddScoped<IPositiveGameEventApi, PositiveGameEventApi>();
 builder.Services.AddScoped<INegativeGameEventApi, NegativeGameEventApi>();
 
 //Add Authorization
+//builder.Services.AddScoped<ClaimsPrincipal>(sp => sp.GetService<IHttpContextAccessor>().HttpContext.User);
+
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<TokenAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(provider => 
     provider.GetRequiredService<TokenAuthenticationStateProvider>());
+
+//builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
 
 //Register the Sdk api classes
 if (!string.IsNullOrWhiteSpace(appSettings.ApiBaseUrl))

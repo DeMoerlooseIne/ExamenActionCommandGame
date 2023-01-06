@@ -58,18 +58,6 @@ namespace ActionCommandGame.Repository
                 PasswordHash = passwordHashRick
             };
 
-            //var adminRole = new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" };
-            //var userRole = new IdentityRole() { Name = "User", NormalizedName = "USER" };
-
-            //Roles.Add(adminRole);
-            //Roles.Add(userRole);
-
-            //Users.Add(userAdmin);
-
-            //UserRoles.Add(new IdentityUserRole<string>() { RoleId = adminRole.Id, UserId = userAdmin.Id });
-            //UserRoles.Add(new IdentityUserRole<string>() { RoleId = userRole.Id, UserId = userAdmin.Id });
-            //UserRoles.Add(new IdentityUserRole<string>() { RoleId = userRole.Id, UserId = user.Id });
-
             SaveChanges();
 
             GeneratePositiveGameEvents();

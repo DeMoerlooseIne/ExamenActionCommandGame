@@ -25,17 +25,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-//Initialize dbContext data
+//Initialize dbContext in SQLServer --> DbInstaller
 using var scope = app.Services.CreateScope();
 var dbContext = scope.ServiceProvider.GetRequiredService<ActionCommandGameDbContext>();
-
-//Use this one for the database connection + uncomment 
-//builder.Services.AddDbContext<ActionCommandGameDbContext>
-//    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("ActionCommandGame")));
-
-//Run once to migrate DBContent from InMemory to SQL
-//dbContext.Initialize();
-
 if (dbContext.Database.IsInMemory())
 {
     dbContext.Initialize();
