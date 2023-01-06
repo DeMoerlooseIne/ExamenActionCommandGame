@@ -169,7 +169,8 @@
         "so-i-really-think-what-youre-doing-here-is-unethical.mp3","we-both-know-it-wouldnt-work.mp3",
         "S!U about moonmen.mp3", "Show Me What You Got.mp3", "What is my purpose.mp3",
         "you-have-my-word-as-a-caregiver-everythings-gonna-be-fine.mp3", "youre-acting-like-a-freaking-lunatic.mp3",
-        "you-really-are-your-fathers-children.mp3"
+        "you-really-are-your-fathers-children.mp3", "big-star-in-the-sky-oxygen-rich-atmosphere-giant-testicle-monsters.mp3",
+        "rick-and-morty-drops-the-soap.mp3", "rick-and-morty-shake-that-ass.mp3", "Not in Control.mp3"
     };
 
     private string PortalTwirlCss = "";
@@ -183,7 +184,7 @@
         await RefreshLeaderBoard();
         await RefreshPlayeritems();
         await base.OnInitializedAsync();
-        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/Head Bent Over.mp3");
+        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "../ricksongs/Head Bent Over.mp3");
     }
 
     private async Task Travel()
@@ -226,7 +227,7 @@
 
     private async Task Logout()
     {
-        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/its-time-to-go-back-to-our-lives.mp3");
+        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "../ricksounds/ill-see-you-around.mp3");
         await Task.Delay(1600);
         NavigationManager.NavigateTo("/");
     }

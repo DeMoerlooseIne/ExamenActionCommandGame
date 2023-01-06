@@ -38,22 +38,45 @@ namespace ActionCommandGame.Repository
 
         public void Initialize()
         {
-            var email = "bavo.ketels@vives.be";
+
+            var emailTeacher = "bavo.ketels@vives.be";
             //Password Test123$
-            var passwordHash = "AQAAAAEAACcQAAAAECp9VnV5jgDyqQqacxkrC+OcWFUM1+mavZ4+mxxhqtm/dg9UTVq1vhgAKFsblrEXDA==";
-            var user = new IdentityUser
+            var passwordHashTeacher = "AQAAAAEAACcQAAAAECp9VnV5jgDyqQqacxkrC+OcWFUM1+mavZ4+mxxhqtm/dg9UTVq1vhgAKFsblrEXDA==";
+
+            var emailRick = "rick@hotmail.com";
+            //Password Test123$
+            var passwordHashRick = "AQAAAAEAACcQAAAAECp9VnV5jgDyqQqacxkrC+OcWFUM1+mavZ4+mxxhqtm/dg9UTVq1vhgAKFsblrEXDA==";
+
+            var userAdmin = new IdentityUser
             {
-                UserName = email,
-                Email = email,
-                NormalizedEmail = email.ToUpperInvariant(),
-                NormalizedUserName = email.ToUpperInvariant(),
-                PasswordHash = passwordHash
+                UserName = emailTeacher,
+                Email = emailTeacher,
+                NormalizedEmail = emailTeacher.ToUpperInvariant(),
+                NormalizedUserName = emailTeacher.ToUpperInvariant(),
+                PasswordHash = passwordHashTeacher
             };
 
-            //var claim = new IdentityUserClaim<string> { ClaimType = "role", ClaimValue = "admin" };
-            //user.Claims.Add(claim);
+            var user = new IdentityUser
+            {
+                UserName = emailRick,
+                Email = emailRick,
+                NormalizedEmail = emailRick.ToUpperInvariant(),
+                NormalizedUserName = emailRick.ToUpperInvariant(),
+                PasswordHash = passwordHashRick
+            };
 
-            Users.Add(user);
+            var adminRole = new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" };
+            var userRole = new IdentityRole() { Name = "User", NormalizedName = "USER" };
+
+            Roles.Add(adminRole);
+            Roles.Add(userRole);
+
+            Users.Add(userAdmin);
+
+            UserRoles.Add(new IdentityUserRole<string>() { RoleId = adminRole.Id, UserId = userAdmin.Id });
+            UserRoles.Add(new IdentityUserRole<string>() { RoleId = userRole.Id, UserId = userAdmin.Id });
+            UserRoles.Add(new IdentityUserRole<string>() { RoleId = userRole.Id, UserId = user.Id });
+
             SaveChanges();
 
             GeneratePositiveGameEvents();
@@ -75,11 +98,11 @@ namespace ActionCommandGame.Repository
                 Price = 10000000
             });
 
-            Players.Add(new Player { UserId = user.Id, Name = "Rick Sanchez", Money = 10000, ImageName = "Rick_Sanchez.png" });
-            Players.Add(new Player { UserId = user.Id, Name = "Morty Smith", Money = 1000, Experience = 2000, ImageName = "Morty_Smith.png" });
-            Players.Add(new Player { UserId = user.Id, Name = "Summer Smith", Money = 500, Experience = 5, ImageName = "Summer_Smith.png" });
-            Players.Add(new Player { UserId = user.Id, Name = "Jerry Smith", Money = 1000000, Experience = 200, ImageName = "Jerry_Smith.png" });
-            Players.Add(new Player { UserId = user.Id, Name = "Beth Smith", Money = 1000000, Experience = 200, ImageName = "Beth_Smith.png" });
+            Players.Add(new Player { UserId = userAdmin.Id, Name = "Rick Sanchez", Money = 10000, ImageName = "Rick_Sanchez.png" });
+            Players.Add(new Player { UserId = userAdmin.Id, Name = "Morty Smith", Money = 1000, Experience = 2000, ImageName = "Morty_Smith.png" });
+            Players.Add(new Player { UserId = userAdmin.Id, Name = "Summer Smith", Money = 500, Experience = 5, ImageName = "Summer_Smith.png" });
+            Players.Add(new Player { UserId = userAdmin.Id, Name = "Jerry Smith", Money = 1000000, Experience = 200, ImageName = "Jerry_Smith.png" });
+            Players.Add(new Player { UserId = userAdmin.Id, Name = "Beth Smith", Money = 1000000, Experience = 200, ImageName = "Beth_Smith.png" });
 
             SaveChanges();
         }

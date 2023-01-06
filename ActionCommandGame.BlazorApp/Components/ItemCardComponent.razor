@@ -42,8 +42,6 @@
 
     public async Task Buy(int itemId)
     {
-        await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/sounds/how-much.mp3");
-
         var result = await _gameApi.BuyAsync(playerId, itemId);
 
         if (result.IsSuccess)
@@ -51,13 +49,13 @@
             await _jsRuntime.InvokeVoidAsync("ShowSwal", "success",
                 $"You bought {result.Data.Item.Name} for ${result.Data.Item.Price}, " +
                 $" You have ${result.Data.Player.Money} left");
-
+            await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/mega-seeds-are-super-valuable.mp3");
         }
         else
         {
             await _jsRuntime.InvokeVoidAsync("ShowSwal", "error",
                 "You don't have enough money! Go and find new valuable items! Or buy something less expensive");
-            await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/sounds/bullshit-me.mp3");
+            await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/no-cant-do-morty-i-just-cant.mp3");
         }
 
         StateHasChanged();

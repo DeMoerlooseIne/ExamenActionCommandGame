@@ -1,9 +1,11 @@
-﻿  @page "/CreateItem"
-  @page "/UpdateItem/{Id:int}"
+﻿@page "/CreateItem"
+@page "/UpdateItem/{Id:int}"
 @using Microsoft.AspNetCore.Authorization
-  @inject NavigationManager NavigationManager
-  @inject IItemApi ItemApi
-  @attribute [Authorize(Roles = "Admin")]
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager NavigationManager
+@inject IItemApi ItemApi
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles = "Admin")]
 
 <div class="container">
 
@@ -87,6 +89,8 @@
     private string Title { get; set; } = "CREATE";
 
     private ItemResult Item { get; set; } = new();
+
+    ClaimsPrincipal User => (AuthenticationStateProvider.GetAuthenticationStateAsync().Result).User;
 
     protected override async Task OnInitializedAsync()
     {

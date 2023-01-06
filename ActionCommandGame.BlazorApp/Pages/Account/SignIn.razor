@@ -8,7 +8,7 @@
 @inject ILocalStorageService StorageService
 @inject NavigationManager NavigationManager
 @inject TokenAuthenticationStateProvider AuthenticationStateProvider
-@inject IJSRuntime _jsRuntime
+@inject IJSRuntime JsRuntime
 
 
 @if (isLoginShowing)
@@ -95,6 +95,8 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/Theme Song.mp3");
+
     }
 
     public async Task LoginUser()
@@ -102,16 +104,17 @@
         var result = await IdentityApi.SignInAsync(_signInRequest);
         if (!result.Success)
         {
-            await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/who--the-fuck-are-you.mp3");
-            await _jsRuntime.InvokeVoidAsync("ShowSwal", "error",
+            await JsRuntime.InvokeVoidAsync("PlayAudioFile", "../ricksounds/who--the-fuck-are-you.mp3");
+            await JsRuntime.InvokeVoidAsync("ShowSwal", "error",
                 "I don't know you, get out, motherfucker!!!!");
             
             return;
         }
 
         await StorageService.SetItemAsync("Token", result.Token);
+        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "../ricksounds/Thankyou.mp3");
 
-        //if ()
+
         NavigationManager.NavigateTo("/players");
     }
 
@@ -122,13 +125,16 @@
 
         if (result.Success)
         {
-            await _jsRuntime.InvokeVoidAsync("ShowSwal", "success", "Allright, you are ready to sign in!!!");
+            await JsRuntime.InvokeVoidAsync("PlayAudioFile", "../ricksounds/Thankyou.mp3");
+
+            await JsRuntime.InvokeVoidAsync("ShowSwal", "success", "Allright, you are ready to sign in!!!");
             isRegisterShowing = false;
             isLoginShowing = true;
         }
         else
         {
-            await _jsRuntime.InvokeVoidAsync("ShowSwal", "error",
+            await JsRuntime.InvokeVoidAsync("PlayAudioFile", "../ricksounds/who--the-fuck-are-you.mp3");
+            await JsRuntime.InvokeVoidAsync("ShowSwal", "error",
                 "I don't know you, get out, motherfucker!!!!");
         }
     }

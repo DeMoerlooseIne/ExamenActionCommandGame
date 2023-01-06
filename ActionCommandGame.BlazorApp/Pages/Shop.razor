@@ -2,13 +2,17 @@
 @inject IItemApi _itemApi
 @inject IPlayerApi _playerApi
 @inject ILocalStorageService _storageService
+@inject IJSRuntime JsRuntime
+
 @using ActionCommandGame.BlazorApp.Components
 
 <div class="vh-100 h-100 bg-dark shop-background">
     <div class="container">
-        <div class="mx-2 pt-3 flex-row d-flex align-items-center justify-content-between">
-            <a href="/game" class="btn back-button fw-bolder rounded-pill border-white">BACK</a>
-            <p class=" primary-color h3">Buy whatever you want, <span class="text-success">@Player.Name</span></p>
+        <div class="mx-2 pt-3 flex-row d-flex align-items-center justify-content-between" >
+            <a href="/game"  class="btn back-button fw-bolder rounded-pill border-white">
+                <span class="GoBack" onmouseover="document.getElementById('letsgo').play()">BACK</span>
+            </a>
+            <p class=" primary-color h3">Buy whatever you want, @Player.Name</p>
         </div>
         <div id="scroll-style" class="row shop-view scroll">
             @if (!Items.Any())
@@ -96,5 +100,6 @@
         Player = playerResult.Data;
 
         await base.OnInitializedAsync();
+        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "../ricksounds/Let Me Out.mp3");
     }
 }

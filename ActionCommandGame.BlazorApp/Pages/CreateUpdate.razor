@@ -10,7 +10,7 @@
         <source id="playerSource" src="" />
     </audio>
     <video autoplay loop id="myVideo">
-        <source src="../ricksounds/100 years.mp4" type="video/mp4">
+        <source src="../rickvideo/100 years.mp4" type="video/mp4">
         <style>
     #myVideo {
     position: fixed;
@@ -39,7 +39,7 @@
                 </ChildContent>
             </DropdownComponent>
         </div>
-        <EditForm Model="Player" OnValidSubmit="HandleCreateUpdate" class="p-3 mt-3">
+        <EditForm Model="Player" OnValidSubmit="HandleCreateUpdate" class="p-3 mt-3 text-white">
             <DataAnnotationsValidator />
             <ValidationMessage For="() => Player.Name" />
             <div class="form-field d-flex align-items-center">

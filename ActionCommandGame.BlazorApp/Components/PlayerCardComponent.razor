@@ -34,13 +34,14 @@
     private async Task SetPlayerId(int playerId)
     {
         await _storageService.SetItemAsync("PlayerId", Player.Id);
+        await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/lets-go.mp3");
         _navigationManager.NavigateTo("/Game");
     }
 
     private async Task ShowDeleteComponent()
     {
         await _storageService.SetItemAsync("PlayerId", Player.Id);
-        await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/sounds/hasta-la-vista.mp3");
+        await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/im-gonna-kill-you.mp3");
 
         if (DeleteComponent is null)
         {

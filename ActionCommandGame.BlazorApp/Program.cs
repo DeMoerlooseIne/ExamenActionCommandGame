@@ -9,7 +9,8 @@ using Syncfusion.Blazor;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -31,7 +32,9 @@ builder.Services.AddScoped<ITokenStore, TokenStore>();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<TokenAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(provider => 
-    provider.GetRequiredService<TokenAuthenticationStateProvider>());
+   provider.GetRequiredService<TokenAuthenticationStateProvider>());
+
+//Services.AddScoped(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
 //Register the Sdk api classes
 if (!string.IsNullOrWhiteSpace(appSettings.ApiBaseUrl))
