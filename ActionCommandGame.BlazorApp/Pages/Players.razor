@@ -3,8 +3,8 @@
 @inject ILocalStorageService StorageService
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject ClaimsPrincipal User
+@*@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ClaimsPrincipal User*@
 @using ActionCommandGame.BlazorApp.Components
 @using Microsoft.AspNetCore.Components.Authorization;
 @using System.Security.Claims;
@@ -25,12 +25,12 @@
     <div class="top-0 position-absolute end-0">
         
         @*only visible for admins*@
-        @if (User.IsInRole("admin"))
-        {
+   @*     @if (User.IsInRole("Admin"))
+        {*@
         <a class="btn btn-sm logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill" href="ItemAdmin">Item Admin</a>
         <a class="btn btn-sm logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill" href="positivegameventadmin">Positive Events Admin</a>
         <a class="btn btn-sm logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill" href="negativegameventadmin">Negative Events Admin</a>
-        }
+       @* }*@
         <button @onclick="Logout" class="btn logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill">
             LOGOUT
             <i class="fa-solid fa-person-walking-arrow-right"></i>

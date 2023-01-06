@@ -5,6 +5,16 @@
   @inject INegativeGameEventApi _negativeGameEventApi
 @*  @attribute [Authorize(Roles = "Admin")]
 *@
+
+
+<style>
+    body {
+        background-image: url(../images/backgrounds/wallpaper2.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
 <div class="container">
     <EditForm Model="NegativeGameEventResult" OnValidSubmit="HandleCreateUpdate" class="p-3 mt-3">
         <DataAnnotationsValidator />

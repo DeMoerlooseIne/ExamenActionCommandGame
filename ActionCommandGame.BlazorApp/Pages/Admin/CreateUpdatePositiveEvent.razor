@@ -3,10 +3,17 @@
 @using Microsoft.AspNetCore.Authorization
 @inject NavigationManager _navigationManager
 @inject IPositiveGameEventApi _positiveGameEventApi
-@*  @attribute [Authorize(Roles = "Admin")]
-*@
-<div class="container">
+@*  @attribute [Authorize(Roles = "Admin")]*@
 
+<style>
+    body {
+        background-image: url(../images/backgrounds/wallpaper2.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<div class="container text-white">
     <EditForm Model="PositiveGameEvent" OnValidSubmit="HandleCreateUpdate" class="p-3 mt-3">
         <DataAnnotationsValidator />
         <ValidationMessage For="() => PositiveGameEvent.Name" />

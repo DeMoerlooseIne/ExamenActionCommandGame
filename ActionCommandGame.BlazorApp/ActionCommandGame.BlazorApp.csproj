@@ -25,7 +25,6 @@
     <None Include="wwwroot\images\backgrounds\ram.jpg" />
     <None Include="wwwroot\images\backgrounds\rick-and-morty-rick.gif" />
     <None Include="wwwroot\images\backgrounds\rickandmorty1.jpg" />
-    <None Include="wwwroot\images\backgrounds\wallpaper.jpg" />
     <None Include="wwwroot\images\backgrounds\wallpaper1.jpg" />
     <None Include="wwwroot\images\backgrounds\wallpaper2.jpg" />
     <None Include="wwwroot\images\backgrounds\wallpaper3.jpg" />

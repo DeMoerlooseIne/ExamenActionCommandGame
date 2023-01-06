@@ -965,7 +965,13 @@ body .modal-dialog {
 }
 
 /*----------------------------adminitem---------------------------*/
-
+.background-item {
+    background-image: url(../images/backgrounds/wallpaper2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    background-position: center;
+}
 .admin-item-img {
     width: 80px;
     height: 80px;
@@ -1023,8 +1029,13 @@ body .modal-dialog {
     }
 
 
-/*----------------------------admincreateitem---------------------------*/
+/*----------------------------admincreateupdateitem---------------------------*/
 
+.background-createupdateitem {
+    background-image: url(../images/backgrounds/wallpaper2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .create-update-btn {
     text-decoration: none;
     font-size: 2.5rem;
