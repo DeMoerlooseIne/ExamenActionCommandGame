@@ -23,8 +23,7 @@
         <source id="playerSource" src="" />
     </audio>
     <div class="top-0 position-absolute end-0">
-        
-        @*only visible for admins*@
+
    @*     @if (User.IsInRole("Admin"))
         {*@
         <a class="btn btn-sm logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill" href="ItemAdmin">Item Admin</a>
@@ -80,6 +79,13 @@
         var players = await PlayerApi.Find(Filter);
         PlayersResult = players.Data;
         StateHasChanged();
+
+        //if (!players.Data.Any())
+        //{
+        //    await LoadDefaultPlayers();
+        //    players = await PlayerApi.Find(Filter);
+        //    StateHasChanged();
+        //}
     }
 
     private async Task Logout()
@@ -88,5 +94,26 @@
         await Task.Delay(1600);
         NavigationManager.NavigateTo("/");
     }
+
+    //private async Task LoadDefaultPlayers()
+    //{
+    //    var Rick = new PlayerResult
+    //        {
+    //            Name = "Rick Sanchez",
+    //            Money = 5000,
+    //            Experience = 70,
+    //            ImageName = "Rick_Sanchez.png"
+    //        };
+    //    var Morty = new PlayerResult
+    //        {
+    //            Name = "Morty Smith",
+    //            Money = 3000,
+    //            Experience = 50,
+    //            ImageName = "Morty_Smith.png"
+    //        };
+
+    //    await PlayerApi.Create(Morty);
+    //    await PlayerApi.Create(Rick);
+    //}
 }
 

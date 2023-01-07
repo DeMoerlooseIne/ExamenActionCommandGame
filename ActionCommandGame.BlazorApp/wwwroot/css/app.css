@@ -522,9 +522,9 @@ select {
     cursor: pointer;
 }
 
-.play-btn {
-    background: chartreuse;
-    color: black;
+.btn-play {
+    color: #000;
+    background-color: chartreuse;
 }
 
 .play-icon {
@@ -533,7 +533,7 @@ select {
 
 .update-btn {
     background: green;
-    color: white;
+    color: black;
 }
 
 /*--------------stats--------------*/
@@ -955,7 +955,7 @@ body .modal-dialog {
 /*----------------------------carditemcomponent---------------------------*/
 
 .card-item {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
 }
 
 /*----------------------------createupdatecarditem---------------------------*/

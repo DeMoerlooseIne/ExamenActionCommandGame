@@ -15,11 +15,6 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
-
-    .shopItems {
-        background: rgba(0, 0, 0, 0.5);
-    }
-
 </style>
 
 <div @onclick="PortalTwirl" class="vh-100 game-background">
@@ -98,7 +93,7 @@
                 <div>
                     <div class="card text-center shadow ">
                         <div class="card-header h2 bg-dark text-white">
-                            <a href="/shop"><i class="fa-solid fa-cart-plus"></i></a>
+                            <a href="/shop"><i class="fa-solid fa-cart-plus text-white"></i></a>
                             Shop
                         </div>
                         @if (!PlayerItems.Any())

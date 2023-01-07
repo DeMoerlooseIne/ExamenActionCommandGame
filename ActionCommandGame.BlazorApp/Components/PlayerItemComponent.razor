@@ -1,4 +1,4 @@
-﻿@inject IPlayerItemApi _playerItemApi
+﻿@inject IPlayerItemApi PlayerItemApi
 
 <li class="list-group-item">
     <div class="d-flex flex-row justify-content-center">
@@ -38,7 +38,7 @@
 
     private async Task DeletePlayerItem()
     {
-        await _playerItemApi.DeleteAsync(PlayerItem.Id);
+        await PlayerItemApi.DeleteAsync(PlayerItem.Id);
         await IsPlayerItemDeleted.InvokeAsync();
         StateHasChanged();
     }

@@ -36,6 +36,11 @@
                     <DropdownListItemComponent Item="@imageList[8]"><img style="height: 150px; width: 170px" src="https://static.wikia.nocookie.net/rickandmorty/images/4/40/Mr._Goldenfold.png" /></DropdownListItemComponent>
                     <DropdownListItemComponent Item="@imageList[9]"><img style="height: 150px; width: 170px" src="https://images.hobbydb.com/processed_uploads/subject_photo/subject_photo/image/43329/1537382146-18191-1647/maxresdefault_large.jpg" /></DropdownListItemComponent>
                     <DropdownListItemComponent Item="@imageList[10]"><img style="height: 150px; width: 170px" src="https://i1.sndcdn.com/artworks-000131941579-k9t4qc-t500x500.jpg" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[11]"><img style="height: 150px; width: 170px" src="https://upload.wikimedia.org/wikipedia/en/a/a6/Rick_Sanchez.png" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[12]"><img style="height: 150px; width: 170px" src="https://upload.wikimedia.org/wikipedia/en/c/c3/Morty_Smith.png" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[13]"><img style="height: 150px; width: 170px" src="https://upload.wikimedia.org/wikipedia/en/9/9f/Summer_Smith.png" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[14]"><img style="height: 150px; width: 170px" src="https://upload.wikimedia.org/wikipedia/en/a/a6/Jerry_Smith_%28Rick_and_Morty%29.png" /></DropdownListItemComponent>
+                    <DropdownListItemComponent Item="@imageList[15]"><img style="height: 150px; width: 170px" src="https://upload.wikimedia.org/wikipedia/en/5/58/Beth_Smith.png" /></DropdownListItemComponent>
                 </ChildContent>
             </DropdownComponent>
         </div>
@@ -43,17 +48,17 @@
             <DataAnnotationsValidator />
             <ValidationMessage For="() => Player.Name" />
             <div class="form-field d-flex align-items-center">
-                <span class="fa-solid fa-user-astronaut"></span>
+                <span class="fa-solid fa-user-astronaut"></span> Name :
                 <InputText @bind-Value="Player.Name" placeholder="name" />
             </div>
             <ValidationMessage For="() => Player.Money" />
             <div class="form-field d-flex align-items-center">
-                <span class="fa-solid fa-sack-dollar"></span>
+                <span class="fa-solid fa-sack-dollar"></span> Money : 
                 <InputNumber @bind-Value="Player.Money" placeholder="money" />
             </div>
             <ValidationMessage For="() => Player.Experience" />
             <div class="form-field d-flex align-items-center">
-                <span class="fas fa-chart-line"></span>
+                <span class="fas fa-chart-line"></span> Experience : 
                 <InputNumber @bind-Value="Player.Experience" placeholder="expercience" />
             </div>
             <div class="text-center fs-6 flex-column d-flex w-100">
@@ -84,7 +89,7 @@
     protected override async Task OnInitializedAsync()
     {
         imageList = new List<string> { "PickleRatRick.png", "Meeseeks.png", "EvilMorty.png", "Jessica.png", "MrNimbus.png", "Abradolf.png", "Zeep.png",
-        "PrincipalVagina.png", "MrGoldenfold.png", "GearHead.png", "MrPoopyButthole.png"};
+        "PrincipalVagina.png", "MrGoldenfold.png", "GearHead.png", "MrPoopyButthole.png", "Rick_Sanchez.png", "Morty_Smith.png", "Summer_Smith.png", "Jerry_Smith.png", "Beth_Smith.png"};
 
         if (Id != null)
         {

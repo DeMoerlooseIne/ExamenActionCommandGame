@@ -7,6 +7,7 @@
 @using ActionCommandGame.BlazorApp.Components
 
 <div class="vh-100 h-100 bg-dark shop-background">
+    <audio autoplay controls><source src="/ricksongs/Let Me Out.mp3"></audio>
     <div class="container">
         <div class="mx-2 pt-3 flex-row d-flex align-items-center justify-content-between" >
             <a href="/game"  class="btn back-button fw-bolder rounded-pill border-white">
@@ -100,6 +101,6 @@
         Player = playerResult.Data;
 
         await base.OnInitializedAsync();
-        await JsRuntime.InvokeVoidAsync("PlayAudioFile", "../ricksounds/Let Me Out.mp3");
+        //await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksongs/Let Me Out.mp3");
     }
 }

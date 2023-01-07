@@ -1,4 +1,4 @@
-﻿@inject ILocalStorageService _storageService
+﻿@inject ILocalStorageService StorageService
 
 <div class="card text-center shadow">
     <div class="card-header h2 bg-dark text-white">
@@ -6,11 +6,6 @@
         LeaderBoard
     </div>
 
-    <style>
-        .leaderbord {
-            background: rgba(0, 0, 0, 0.5);
-        }
-    </style>
     <div class="card-body scroll leaderboard fw-bold">
         @foreach (var player in @OrderedPlayers)
         {
@@ -35,7 +30,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        playerId = await _storageService.GetItemAsync<int>("PlayerId");
+        playerId = await StorageService.GetItemAsync<int>("PlayerId");
         await base.OnInitializedAsync();
     }
 

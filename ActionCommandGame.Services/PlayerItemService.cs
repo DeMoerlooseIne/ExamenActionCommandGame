@@ -94,13 +94,20 @@ namespace ActionCommandGame.Services
 
         public async Task<ServiceResult> DeleteAsync(int id, string authenticatedUserId)
         {
-            var playerItem = _database.PlayerItems.SingleOrDefault(pi => pi.Id == id);
+            var playerItem = _database.PlayerItems
+                .SingleOrDefault(pi => pi.Id == id);
 
             if (playerItem == null)
             {
                 return new ServiceResult().NotFound();
             }
-            
+
+            if (playerItem != null)
+            {
+                _database.Entry(playerItem).Reference(pi => pi.Player).Load();
+                _database.Entry(playerItem).Reference(pi => pi.Item).Load();
+            }
+
             var player = playerItem.Player;
             player.Inventory.Remove(playerItem);
             
