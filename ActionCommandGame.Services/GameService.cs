@@ -45,9 +45,15 @@ namespace ActionCommandGame.Services
         public async Task<ServiceResult<GameResult>> PerformActionAsync(int playerId, string authenticatedUserId)
         {
             //Check Cooldown
+
+            /*Add extra code : Include(p => p.CurrentAtt... to see the attack and defense with the playeritem*/
+
             var player = await _database.Players
                 .Include(p => p.CurrentFuelPlayerItem.Item)
+                .Include(p => p.CurrentAttackPlayerItem.Item)
+                .Include(p => p.CurrentDefensePlayerItem.Item)
                 .SingleOrDefaultAsync(p => p.Id == playerId);
+
 
             ServiceResult<PlayerResult> playerResult;
 
