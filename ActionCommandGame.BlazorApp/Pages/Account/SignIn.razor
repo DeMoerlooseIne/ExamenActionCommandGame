@@ -10,15 +10,16 @@
 @inject TokenAuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime JsRuntime
 
-
 @if (isLoginShowing)
 {
     <div class="vh-100 login-background d-flex flex-column justify-content-center align-items-center">
+       
         <div class="typewriter mb-5 rounded-3">
             <h3 class="primary-color fw-bold display-4">
                 <img class="login-span" src="images/banner1.png" />
             </h3>
         </div>
+   
         <div class="wrapper">
             <h2 class="fw-bolder display-6 primary-color text-center mb-2">LOGIN</h2>
             <div class="w-100 text-center">
@@ -47,8 +48,10 @@
             <div @onclick="ShowRegistration" class="text-center fs-6">
                 Not A Member? <a href="#"><span class="signin-link" onmouseover="document.getElementById('whoareyou').play()">Sign Up</span></a>
             </div>
+            <audio autoplay controls><source src="/ricksongs/Theme Song.mp3" preload="auto"></audio>
         </div>
     </div>
+
 }
 
 @if (isRegisterShowing)

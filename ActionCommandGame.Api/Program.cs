@@ -25,6 +25,19 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    OnPrepareResponse = ctx =>
+//    {
+//        if (ctx.Context.Request.Path == "/images/logo/logo.ico")
+//        {
+//            // Redirect to a remote URL
+//            ctx.Context.Response.Redirect("https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico");
+//        }
+//    }
+//});
+
 //Initialize dbContext in SQLServer --> DbInstaller
 using var scope = app.Services.CreateScope();
 var dbContext = scope.ServiceProvider.GetRequiredService<ActionCommandGameDbContext>();
