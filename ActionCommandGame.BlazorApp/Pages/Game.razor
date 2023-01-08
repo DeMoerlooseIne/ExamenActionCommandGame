@@ -20,22 +20,21 @@
 <div @onclick="PortalTwirl" class="vh-100 game-background">
 
     <div class="d-flex w-100 justify-content-between">
-        <a href="/players" class="btn change-player-btn fw-bolder border-white primary-color ms-3 mt-3 rounded-pill">
-            CHANGE PLAYER
-            <i class="fa-solid fa-people-arrows"></i>
+        <a href="/players">
+            <img class="btn change-player-btn-image change-player-btn" src="images/buttons/change-player-button.png" />
         </a>
         <audio id="player">
             <source id="playerSource" src="" />
         </audio>
-        <button @onclick="Logout" class="btn logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill">
-            LOGOUT
-            <i class="fa-solid fa-person-walking-arrow-right"></i>
-        </button>
+        <a @onclick="Logout">
+            <img class="btn logout-btn-image logout-btn" src="images/buttons/logout.png" />
+        </a>
     </div>
     <div class="container">
         <div style="height: 60vh" class="row mt-0">
             <div class="col-12 col-lg-5 mt-0 portal-section">
-                <div data-toggle="tooltip" data-placement="top" title="CLICK ME" class="d-flex flex-row justify-content-center mb-5">
+                <div data-placement="top">
+                <div data-toggle="tooltip" title="CLICK ME" class="d-flex flex-row justify-content-center mb-5">
                     <audio id="player">
                         <source id="playerSource" src="" />
                     </audio>
@@ -52,8 +51,8 @@
                     }
                     @if (_positiveGameEvent != null)
                     {
-                        <p class="fw-bold h-6">@Player.Name, Click the portal gun and go...</p>
-                        <p class="fst-italic">@_positiveGameEvent.Name</p>
+                        <p class="font-family-style fw-bold h-6">@Player.Name, Click the portal gun and go...</p>
+                        <p class="font-family-style fst-italic">@_positiveGameEvent.Name</p>
                         @if (!string.IsNullOrWhiteSpace(_positiveGameEvent.Description))
                         {
                             <p>@_positiveGameEvent.Description</p>
@@ -82,7 +81,7 @@
                     }
                 </div>
             </div>
-
+            </div>
             <div class="col-12 col-lg-3 mt-2 me-3">
                 <StatsComponent Player="Player" />
             </div>
@@ -91,7 +90,7 @@
                     <LeaderboardComponent OrderedPlayers="_orderedPlayers" />
                 </div>
                 <div>
-                    <div class="card text-center shadow ">
+                    <div class="playeritemcard text-center shadow ">
                         <div class="card-header h2 bg-dark text-white">
                             <a href="/shop"><i class="fa-solid fa-cart-plus text-white"></i></a>
                             Shop
@@ -100,7 +99,7 @@
                         {
                             <div class="d-flex playerItems-card align-items-center text-center shopItems text-white">
                                 <p>
-                                    Click on the shopping cart to buy what you need!
+                                    Click on the cart to buy what you need!
                                 </p>
                             </div>
                         }

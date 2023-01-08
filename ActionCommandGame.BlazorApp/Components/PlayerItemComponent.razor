@@ -4,8 +4,7 @@
     <div class="d-flex flex-row justify-content-center">
         <p class="primary-color fw-bold h5"> @PlayerItem.Name </p>
         
-        @*I was trying to delete a playeritem from the inventory but it was crashing every time i restarted the program*@
-        <button @onclick="DeletePlayerItem" class="text-danger border-0 bg-white"><span class="far fa-minus-square mb-1"></span></button>
+        <button @onclick="DeletePlayerItem" class="text-danger border-0"><span class="far fa-minus-square mb-1"></span></button>
     </div>
     @if (!string.IsNullOrWhiteSpace(@PlayerItem.Description))
     {

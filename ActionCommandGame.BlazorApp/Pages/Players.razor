@@ -26,14 +26,22 @@
 
    @*     @if (User.IsInRole("Admin"))
         {*@
-        <a class="btn btn-sm logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill" href="ItemAdmin">Item Admin</a>
-        <a class="btn btn-sm logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill" href="positivegameventadmin">Positive Events Admin</a>
-        <a class="btn btn-sm logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill" href="negativegameventadmin">Negative Events Admin</a>
+        <a href="ItemAdmin">
+            <img class="btn itemadmin-btn-image change-player-btn" src="images/buttons/items.png" />
+        </a>
+        <a href="positivegameventadmin">
+            <img class="btn pos-btn-image change-player-btn" src="images/buttons/thumbsup.png" />
+        </a>
+        <a href="negativegameventadmin">
+            <img class="btn neg-btn-image change-player-btn" src="images/buttons/thumbsdown.png" />
+        </a>
        @* }*@
-        <button @onclick="Logout" class="btn logout-btn fw-bolder border-white primary-color me-3 mt-3 rounded-pill">
-            LOGOUT
-            <i class="fa-solid fa-person-walking-arrow-right"></i>
-        </button>*
+        <audio id="player">
+            <source id="playerSource" src="" />
+        </audio>
+        <a @onclick="Logout">
+            <img class="btn logout-btn-image logout-btn" src="images/buttons/logout.png" />
+        </a>
     </div>
     <div class="container">
         <div class="row">
@@ -43,16 +51,16 @@
             }
             else
             {
-                <h1 class="primary-color">Select Your Player</h1>
+                <h1 class="primary-color player-title">Select Your Player</h1>
                 <div class="d-flex flex-row mb-3">
-                    <h3 class="primary-color">Or <a href="/create" class="btn change-player-btn border-white primary-color rounded-pill create-btn">Create</a> A New One</h3>
+                    <h3 class="primary-color player-title">Or <a href="/create" class="btn change-player-btn border-white primary-color rounded-pill create-btn player-title">Create</a> A New One</h3>
 
                 </div>
 
                 @foreach (var player in PlayersResult)
                 {
                     <div class="col-12 col-sm-6 col-lg-5 col-xl-2 mb-3 player-card">
-                        <PlayerCardComponent IsDeleted="LoadPlayers" Player="player"></PlayerCardComponent>
+                        <PlayerComponent IsDeleted="LoadPlayers" Player="player"></PlayerComponent>
                     </div>
                 }
             }

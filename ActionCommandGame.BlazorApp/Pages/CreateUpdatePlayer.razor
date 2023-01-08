@@ -48,25 +48,25 @@
             <DataAnnotationsValidator />
             <ValidationMessage For="() => Player.Name" />
             <div class="form-field d-flex align-items-center">
-                <span class="fa-solid fa-user-astronaut"></span> Name :
-                <InputText @bind-Value="Player.Name" placeholder="name" />
+                <span class="fa-solid fa-user-astronaut"></span>
+                <InputText @bind-Value="Player.Name" class="text-white" placeholder="name" />
             </div>
             <ValidationMessage For="() => Player.Money" />
             <div class="form-field d-flex align-items-center">
-                <span class="fa-solid fa-sack-dollar"></span> Money : 
-                <InputNumber @bind-Value="Player.Money" placeholder="money" />
+                <span class="fa-solid fa-sack-dollar"></span>
+                <InputNumber @bind-Value="Player.Money" class="text-white" placeholder="money" />
             </div>
             <ValidationMessage For="() => Player.Experience" />
             <div class="form-field d-flex align-items-center">
-                <span class="fas fa-chart-line"></span> Experience : 
-                <InputNumber @bind-Value="Player.Experience" placeholder="expercience" />
+                <span class="fas fa-chart-line"></span>
+                <InputNumber @bind-Value="Player.Experience" class="text-white" placeholder="expercience" />
             </div>
             <div class="text-center fs-6 flex-column d-flex w-100">
-                <button type="submit" class="btn change-player-btn bg-black border-white primary-color rounded-pill w-100">
+                <button type="submit" class="btn change-player-btn bg-black border-white text-white rounded-pill w-100">
                     <i class="fa-solid fa-person-circle-plus"></i>
                     @Title
                 </button>
-                <a href="/players" class="btn cancel-player-btn rounded-pill mt-2 w-100">
+                <a href="/players" class="btn cancel-player-btn bg-black border-white text-white rounded-pill mt-2 w-100">
                         <i class="fa-solid fa-person-circle-xmark"></i>
                     CANCEL
                 </a>
