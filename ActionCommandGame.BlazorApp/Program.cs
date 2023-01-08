@@ -37,8 +37,6 @@ builder.Services.AddScoped<TokenAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(provider =>
     provider.GetRequiredService<TokenAuthenticationStateProvider>());
 
-//builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
-
 //Register the Sdk api classes
 if (!string.IsNullOrWhiteSpace(appSettings.ApiBaseUrl)) builder.Services.AddApi(appSettings.ApiBaseUrl);
 

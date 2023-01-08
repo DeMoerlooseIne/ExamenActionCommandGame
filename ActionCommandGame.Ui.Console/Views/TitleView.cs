@@ -1,10 +1,10 @@
-﻿using ActionCommandGame.Ui.ConsoleApp.Abstractions;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using ActionCommandGame.Ui.ConsoleApp.Abstractions;
 using ActionCommandGame.Ui.ConsoleApp.ConsoleWriters;
 using ActionCommandGame.Ui.ConsoleApp.Navigation;
 using ActionCommandGame.Ui.ConsoleApp.Settings;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ActionCommandGame.Ui.ConsoleApp.Views;
 

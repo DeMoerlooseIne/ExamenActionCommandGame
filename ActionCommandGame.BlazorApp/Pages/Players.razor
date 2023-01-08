@@ -3,8 +3,8 @@
 @inject ILocalStorageService StorageService
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
-@*@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject ClaimsPrincipal User*@
+@*@attribute [Authorize]
+*@@*@inject AuthenticationStateProvider AuthenticationStateProvider*@
 
 
 <style>
@@ -21,7 +21,7 @@
     </audio>
     <div class="top-0 position-absolute end-0">
 
-   @*     @if (User.IsInRole("Admin"))
+    @*    @if (User.IsInRole("Admin"))
         {*@
         <a href="ItemAdmin">
             <img class="btn itemadmin-btn-image change-player-btn" src="images/buttons/items.png" />
@@ -32,7 +32,7 @@
         <a href="negativegameventadmin">
             <img class="btn neg-btn-image change-player-btn" src="images/buttons/thumbsdown.png" />
         </a>
-       @* }*@
+      @*  }*@
         <audio id="player">
             <source id="playerSource" src="" />
         </audio>
@@ -50,13 +50,14 @@
             {
                 <h1 class="primary-color player-title">Select Your Player</h1>
                 <div class="d-flex flex-row mb-3">
-                    <h3 class="primary-color player-title">Or <a href="/create" class="btn change-player-btn border-white primary-color rounded-pill create-btn player-title">Create</a> A New One</h3>
+                    <h3 class="primary-color player-title">Or 
+                        <a href="/create" class="btn change-player-btn border-white primary-color rounded-pill create-btn player-title">Create</a> A New One</h3>
 
                 </div>
 
                 @foreach (var player in PlayersResult)
                 {
-                    <div class="col-12 col-sm-6 col-lg-5 col-xl-2 mb-3 player-card">
+                    <div class="col-12 col-sm-4 col-lg-5 col-xl-2 mb-3 player-card">
                         <PlayerComponent IsDeleted="LoadPlayers" Player="player"></PlayerComponent>
                     </div>
                 }
@@ -64,15 +65,17 @@
         </div>
     </div>
 </div>
-
+Are you sure you want to delete this player?
 
 @code
 {
+    //private ClaimsPrincipal User { get; set; }
     private IList<PlayerResult>? PlayersResult { get; set; } = new List<PlayerResult>();
     private PlayerFilter? Filter { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        //await GetAuthenticationState();
         await LoadPlayers();
         await base.OnInitializedAsync();
         await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksongs/Get Schwifty.mp3");
@@ -100,25 +103,11 @@
         NavigationManager.NavigateTo("/");
     }
 
-    //private async Task LoadDefaultPlayers()
+    //private async Task GetAuthenticationState()
     //{
-    //    var Rick = new PlayerResult
-    //        {
-    //            Name = "Rick Sanchez",
-    //            Money = 5000,
-    //            Experience = 70,
-    //            ImageName = "Rick_Sanchez.png"
-    //        };
-    //    var Morty = new PlayerResult
-    //        {
-    //            Name = "Morty Smith",
-    //            Money = 3000,
-    //            Experience = 50,
-    //            ImageName = "Morty_Smith.png"
-    //        };
-
-    //    await PlayerApi.Create(Morty);
-    //    await PlayerApi.Create(Rick);
+    //    var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    //    User = authenticationState.User;
     //}
+
 }
 

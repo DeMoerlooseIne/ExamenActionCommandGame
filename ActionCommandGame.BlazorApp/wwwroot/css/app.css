@@ -134,19 +134,23 @@ a, .btn-link {
 }
 
 .yes-btn {
+    background-color: chartreuse;
     color: white;
 }
 
     .yes-btn:hover {
+        background-color: white;
         color: chartreuse;
     }
 
 .no-btn {
-    background: lightgray;
+    background-color: red;
+    color: white;
 }
 
     .no-btn:hover {
-        color:chartreuse;
+        background-color: white;
+        color: red;
     }
 
 .logout-btn {
@@ -511,8 +515,9 @@ select {
     border-radius: 10px;
 }
 
-body .modal-dialog {
-    margin-left: 10rem;
+.modal {
+    width: 120px;
+    height: 150px;
 }
 
 .portal-section {
