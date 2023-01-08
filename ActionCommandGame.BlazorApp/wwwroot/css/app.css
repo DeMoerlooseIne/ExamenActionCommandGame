@@ -25,6 +25,19 @@ h3 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
+h4 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+h5 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+h6 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+
 a, .btn-link {
     color: inherit;
 }
@@ -107,6 +120,12 @@ a, .btn-link {
 .change-player-btn-image {
     height:50px;
     width: 60px;
+}
+
+.go-back-btn {
+     height:50px;
+     width: 60px;
+     background-color: lightgrey;
 }
 
 .itemadmin-btn-image {

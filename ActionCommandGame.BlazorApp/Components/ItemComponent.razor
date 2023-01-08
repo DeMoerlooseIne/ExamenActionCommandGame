@@ -8,7 +8,7 @@
 
 <div class="card align-items-center card-item flex-row flex-sm-column flex-md-row p-3 m-2">
     <div class="card-body">
-        <h5 class="mt-0 fw-bold mb-2 text-white">@Item.Name</h5>
+        <h5 class="mt-0 mb-2 text-white">@Item.Name</h5>
         <p class="fst-italic text-muted mb-0 small text-white">@Item.Description</p>
         <div class="d-flex flex-row">
             <div>
@@ -18,7 +18,7 @@
                 <button @onclick="() => Buy(Item.Id)" class="btn btn-outline-light rounded-pill text-white">BUY</button>
             </div>
             <div class="ms-3">
-                <h6 class="fw-bold my-2 text-white"> Price: <span class="primary-color">@Item.Price</span></h6>
+                <h6 class="my-2 text-white"> Price: <span class="primary-color">@Item.Price</span></h6>
             </div>
         </div>
     </div>

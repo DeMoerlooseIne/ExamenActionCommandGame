@@ -16,7 +16,6 @@
                 <img class="login-span" src="images/banner.png" />
             </h3>
         </div>
-   
         <div class="wrapper">
             <h2 class="fw-bolder display-6 primary-color text-center mb-2">LOGIN</h2>
             <div class="w-100 text-center">
@@ -39,10 +38,10 @@
                     <InputText @bind-Value="_signInRequest.Password" type="password" name="password" id="pwd" placeholder="Password" />
                 </div>
                 <div>
-                    <button type="submit" class="btn login-btn" onmouseover="document.getElementById('dothisthing').play()">Login</button>
+                    <button type="submit" class="btn login-btn font-family-style" onmouseover="document.getElementById('dothisthing').play()">Member Login</button>
                 </div>
             </EditForm>
-            <div @onclick="ShowRegistration" class="text-center fs-6">
+            <div @onclick="ShowRegistration" class="text-center fs-6 font-family-style">
                 Not A Member? <a href="#"><span class="signin-link" onmouseover="document.getElementById('whoareyou').play()">Sign Up</span></a>
             </div>
             <audio autoplay controls style="display: none"><source src="/ricksongs/Theme Song.mp3" preload="auto"></audio>
