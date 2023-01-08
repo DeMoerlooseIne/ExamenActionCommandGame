@@ -1,25 +1,18 @@
-﻿using System.Linq;
-using ActionCommandGame.Model;
+﻿using ActionCommandGame.Model;
 using ActionCommandGame.Services.Model.Filters;
+using System.Linq;
 
-namespace ActionCommandGame.Services.Extensions.Filters
+namespace ActionCommandGame.Services.Extensions.Filters;
+
+internal static class PlayerItemFilterExtensions
 {
-    internal static class PlayerItemFilterExtensions
+    public static IQueryable<PlayerItem> ApplyFilter(this IQueryable<PlayerItem> query,
+        PlayerItemFilter filter)
     {
-        public static IQueryable<PlayerItem> ApplyFilter(this IQueryable<PlayerItem> query,
-            PlayerItemFilter filter)
-        {
-            if (filter is null)
-            {
-                return query;
-            }
+        if (filter is null) return query;
 
-            if (filter.PlayerId.HasValue)
-            {
-                query = query.Where(pi => pi.PlayerId == filter.PlayerId.Value);
-            }
+        if (filter.PlayerId.HasValue) query = query.Where(pi => pi.PlayerId == filter.PlayerId.Value);
 
-            return query;
-        }
+        return query;
     }
 }

@@ -1,8 +1,7 @@
 ﻿@page "/CreatePosEvent"
 @page "/UpdatePosEvent/{Id:int}"
-@using Microsoft.AspNetCore.Authorization
-@inject NavigationManager _navigationManager
-@inject IPositiveGameEventApi _positiveGameEventApi
+@inject NavigationManager NavigationManager
+@inject IPositiveGameEventApi PositiveGameEventApi
 @*  @attribute [Authorize(Roles = "Admin")]*@
 
 <style>
@@ -77,7 +76,7 @@
         if (Id != null)
         {
             Title = "UPDATE";
-            var result = await _positiveGameEventApi.GetAsync(Id.Value);
+            var result = await PositiveGameEventApi.GetAsync(Id.Value);
             PositiveGameEvent = result.Data;
         }
         await base.OnInitializedAsync();
@@ -87,14 +86,14 @@
     {
         if (PositiveGameEvent.Id != null && Title == "UPDATE")
         {
-            await _positiveGameEventApi.Update(PositiveGameEvent.Id, PositiveGameEvent);
+            await PositiveGameEventApi.Update(PositiveGameEvent.Id, PositiveGameEvent);
         }
         else
         {
-            await _positiveGameEventApi.Create(PositiveGameEvent);
+            await PositiveGameEventApi.Create(PositiveGameEvent);
         }
 
-        _navigationManager.NavigateTo("/positivegameventadmin");
+        NavigationManager.NavigateTo("/positivegameventadmin");
     }
   }
 

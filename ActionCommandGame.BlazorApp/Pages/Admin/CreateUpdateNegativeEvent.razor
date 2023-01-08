@@ -1,8 +1,7 @@
 ﻿  @page "/CreateNegEvent"
   @page "/UpdateNegEvent/{Id:int}"
-@using Microsoft.AspNetCore.Authorization
-  @inject NavigationManager _navigationManager
-  @inject INegativeGameEventApi _negativeGameEventApi
+  @inject NavigationManager NavigationManager
+  @inject INegativeGameEventApi NegativeGameEventApi
 @*  @attribute [Authorize(Roles = "Admin")]
 *@
 
@@ -86,7 +85,7 @@
         if (Id != null)
         {
             Title = "UPDATE";
-            var result = await _negativeGameEventApi.GetAsync(Id.Value);
+            var result = await NegativeGameEventApi.GetAsync(Id.Value);
             NegativeGameEventResult = result.Data;
         }
         await base.OnInitializedAsync();
@@ -96,13 +95,13 @@
     {
         if (NegativeGameEventResult.Id != null && Title == "UPDATE")
         {
-            await _negativeGameEventApi.Update(NegativeGameEventResult.Id, NegativeGameEventResult);
+            await NegativeGameEventApi.Update(NegativeGameEventResult.Id, NegativeGameEventResult);
         }
         else
         {
-            await _negativeGameEventApi.Create(NegativeGameEventResult);
+            await NegativeGameEventApi.Create(NegativeGameEventResult);
         }
 
-        _navigationManager.NavigateTo("/negativegameventadmin");
+        NavigationManager.NavigateTo("/negativegameventadmin");
     }
   }

@@ -1,8 +1,7 @@
-﻿namespace ActionCommandGame.Api.Authentication.Settings
+﻿namespace ActionCommandGame.Api.Authentication.Settings;
+
+public class JwtSettings
 {
-	public class JwtSettings
-	{
-		public string? Secret { get; set; }
-		public TimeSpan TokenLifetime { get; set; }
-	}
+    public string? Secret { get; set; }
+    public TimeSpan TokenLifetime { get; set; }
 }

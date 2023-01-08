@@ -1,11 +1,9 @@
-﻿@inject IGameApi _gameApi
-@inject ILocalStorageService _storageService
-@inject IJSRuntime _jsRuntime
+﻿@inject IGameApi GameApi
+@inject ILocalStorageService StorageService
+@inject IJSRuntime JsRuntime
 
 <style>
-    .card-item {
-        background: rgba(0, 0, 0, 0.7);
-    }
+    .card-item { background: rgba(0, 0, 0, 0.7); }
 </style>
 
 <div class="card align-items-center card-item flex-row flex-sm-column flex-md-row p-3 m-2">
@@ -35,27 +33,27 @@
 
     protected override async Task OnInitializedAsync()
     {
-        playerId = await _storageService.GetItemAsync<int>("PlayerId");
+        playerId = await StorageService.GetItemAsync<int>("PlayerId");
 
         await base.OnInitializedAsync();
     }
 
     public async Task Buy(int itemId)
     {
-        var result = await _gameApi.BuyAsync(playerId, itemId);
+        var result = await GameApi.BuyAsync(playerId, itemId);
 
         if (result.IsSuccess)
         {
-            await _jsRuntime.InvokeVoidAsync("ShowSwal", "success",
+            await JsRuntime.InvokeVoidAsync("ShowSwal", "success",
                 $"You bought {result.Data.Item.Name} for ${result.Data.Item.Price}, " +
                 $" You have ${result.Data.Player.Money} left");
-            await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/mega-seeds-are-super-valuable.mp3");
+            await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/mega-seeds-are-super-valuable.mp3");
         }
         else
         {
-            await _jsRuntime.InvokeVoidAsync("ShowSwal", "error",
+            await JsRuntime.InvokeVoidAsync("ShowSwal", "error",
                 "You don't have enough money! Go and find new valuable items! Or buy something less expensive");
-            await _jsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/no-cant-do-morty-i-just-cant.mp3");
+            await JsRuntime.InvokeVoidAsync("PlayAudioFile", "/ricksounds/no-cant-do-morty-i-just-cant.mp3");
         }
 
         StateHasChanged();

@@ -1,56 +1,49 @@
-﻿using System.Net.Http.Json;
-using ActionCommandGame.Api.Authentication.Model;
+﻿using ActionCommandGame.Api.Authentication.Model;
 using ActionCommandGame.Sdk.Abstractions;
+using System.Net.Http.Json;
 
-namespace ActionCommandGame.Sdk
+namespace ActionCommandGame.Sdk;
+
+public class IdentityApi : IIdentityApi
 {
-    public class IdentityApi: IIdentityApi
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ITokenStore _tokenStore;
+
+    public IdentityApi(IHttpClientFactory httpClientFactory, ITokenStore tokenStore)
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ITokenStore _tokenStore;
+        _httpClientFactory = httpClientFactory;
+        _tokenStore = tokenStore;
+    }
 
-        public IdentityApi(IHttpClientFactory httpClientFactory, ITokenStore tokenStore)
-        {
-            _httpClientFactory = httpClientFactory;
-            _tokenStore = tokenStore;
-        }
+    public async Task<AuthenticationResult> SignInAsync(UserSignInRequest request)
+    {
+        var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
+        var route = "identity/sign-in";
 
-        public async Task<AuthenticationResult> SignInAsync(UserSignInRequest request)
-        {
-            var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
-            var route = "identity/sign-in";
+        var httpResponse = await httpClient.PostAsJsonAsync(route, request);
 
-            var httpResponse = await httpClient.PostAsJsonAsync(route, request);
+        httpResponse.EnsureSuccessStatusCode();
 
-            httpResponse.EnsureSuccessStatusCode();
+        var result = await httpResponse.Content.ReadFromJsonAsync<AuthenticationResult>();
 
-            var result = await httpResponse.Content.ReadFromJsonAsync<AuthenticationResult>();
+        if (result is null) return new AuthenticationResult();
 
-            if (result is null)
-            {
-                return new AuthenticationResult();
-            }
+        return result;
+    }
 
-            return result;
-        }
+    public async Task<AuthenticationResult> RegisterAsync(UserRegistrationRequest request)
+    {
+        var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
+        var route = "identity/register";
 
-        public async Task<AuthenticationResult> RegisterAsync(UserRegistrationRequest request)
-        {
-            var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
-            var route = "identity/register";
+        var httpResponse = await httpClient.PostAsJsonAsync(route, request);
 
-            var httpResponse = await httpClient.PostAsJsonAsync(route, request);
+        httpResponse.EnsureSuccessStatusCode();
 
-            httpResponse.EnsureSuccessStatusCode();
+        var result = await httpResponse.Content.ReadFromJsonAsync<AuthenticationResult>();
 
-            var result = await httpResponse.Content.ReadFromJsonAsync<AuthenticationResult>();
+        if (result is null) return new AuthenticationResult();
 
-            if (result is null)
-            {
-                return new AuthenticationResult();
-            }
-
-            return result;
-        }
+        return result;
     }
 }

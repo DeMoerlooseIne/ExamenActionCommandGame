@@ -1,17 +1,17 @@
 ﻿@page "/shop"
-@inject IItemApi _itemApi
-@inject IPlayerApi _playerApi
-@inject ILocalStorageService _storageService
+@inject IItemApi ItemApi
+@inject IPlayerApi PlayerApi
+@inject ILocalStorageService StorageService
 @inject IJSRuntime JsRuntime
-
-@using ActionCommandGame.BlazorApp.Components
 
 <div class="vh-100 h-100 bg-dark shop-background">
     <audio autoplay controls style="display: none"><source src="/ricksongs/Let Me Out.mp3"></audio>
     <div class="container">
         <div class="mx-2 pt-3 flex-row d-flex align-items-center justify-content-between" >
-            <a href="/game"  class="btn back-button fw-bolder rounded-pill border-white">
-                <span class="GoBack" onmouseover="document.getElementById('letsgo').play()">BACK</span>
+            <a href="/game"  class="btn back-button fw-bolder rounded-pill bg-white">
+                <span onmouseover="document.getElementById('letsgo').play()">
+                    <img class="btn change-player-btn-image change-player-btn" src="images/buttons/go-back-button.png" />
+                </span>
             </a>
             <p class=" primary-color h3">Buy whatever you want, @Player.Name</p>
         </div>
@@ -86,18 +86,18 @@
 
 @code {
     private IList<ItemResult> Items { get; set; } = new List<ItemResult>();
-    private PlayerResult Player = new PlayerResult();
+    internal PlayerResult Player = new PlayerResult();
 
     private int playerId;
 
     protected override async Task OnInitializedAsync()
     {
-        playerId = await _storageService.GetItemAsync<int>("PlayerId");
+        playerId = await StorageService.GetItemAsync<int>("PlayerId");
 
-        var itemResult = await _itemApi.FindAsync();
+        var itemResult = await ItemApi.FindAsync();
         Items = itemResult.Data;
 
-        var playerResult = await _playerApi.GetAsync(playerId);
+        var playerResult = await PlayerApi.GetAsync(playerId);
         Player = playerResult.Data;
 
         await base.OnInitializedAsync();

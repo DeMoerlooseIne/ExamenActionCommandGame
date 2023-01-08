@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ActionCommandGame.Services.Model.Core;
+﻿using ActionCommandGame.Services.Model.Core;
 using ActionCommandGame.Services.Model.Results;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace ActionCommandGame.Services.Abstractions
+namespace ActionCommandGame.Services.Abstractions;
+
+public interface IPositiveGameEventService
 {
-    public interface IPositiveGameEventService
-    {
-        Task<ServiceResult<PositiveGameEventResult>> GetRandomPositiveGameEvent(bool hasAttackItem, string authenticatedUserId);
-        Task<ServiceResult<PositiveGameEventResult>> GetAsync(int id);
-        Task<ServiceResult<IList<PositiveGameEventResult>>> FindAsync();
-        Task<ServiceResult<PositiveGameEventResult>> Create(PositiveGameEventResult positiveGameEventResult);
-        Task<ServiceResult<PositiveGameEventResult>> Update(int id, PositiveGameEventResult positiveGameEventResult);
-        Task<ServiceResult> DeleteAsync(int id);
-    }
+    Task<ServiceResult<PositiveGameEventResult>> GetRandomPositiveGameEvent(bool hasAttackItem,
+        string authenticatedUserId);
+
+    Task<ServiceResult<PositiveGameEventResult>> GetAsync(int id);
+    Task<ServiceResult<IList<PositiveGameEventResult>>> FindAsync();
+    Task<ServiceResult<PositiveGameEventResult>> Create(PositiveGameEventResult positiveGameEventResult);
+    Task<ServiceResult<PositiveGameEventResult>> Update(int id, PositiveGameEventResult positiveGameEventResult);
+    Task<ServiceResult> DeleteAsync(int id);
 }

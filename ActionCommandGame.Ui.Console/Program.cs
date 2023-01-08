@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using ActionCommandGame.Sdk;
 using ActionCommandGame.Sdk.Abstractions;
 using ActionCommandGame.Sdk.Extensions;
 using ActionCommandGame.Ui.ConsoleApp.Navigation;
@@ -12,65 +11,64 @@ using ActionCommandGame.Ui.ConsoleApp.Views;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ActionCommandGame.Ui.ConsoleApp
+namespace ActionCommandGame.Ui.ConsoleApp;
+
+internal class Program
 {
-    class Program
+    private static IServiceProvider ServiceProvider { get; set; }
+    private static IConfiguration Configuration { get; set; }
+
+    private static async Task Main(string[] args)
     {
-        private static IServiceProvider ServiceProvider { get; set; }
-        private static IConfiguration Configuration { get; set; }
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", false, true);
 
-        static async Task Main(string[] args)
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            
-            Configuration = builder.Build();
+        Configuration = builder.Build();
 
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-            ServiceProvider = serviceCollection.BuildServiceProvider();
+        var serviceCollection = new ServiceCollection();
+        ConfigureServices(serviceCollection);
+        ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            var navigationManager = ServiceProvider.GetRequiredService<NavigationManager>();
+        var navigationManager = ServiceProvider.GetRequiredService<NavigationManager>();
 
-            Console.OutputEncoding = Encoding.UTF8;
-            
-            await navigationManager.NavigateTo<TitleView>();
+        Console.OutputEncoding = Encoding.UTF8;
 
-            //Console.Clear();
-            //await playerSelectionView.Show();
+        await navigationManager.NavigateTo<TitleView>();
 
-            //Console.Clear();
-            //await gameView.Show();
-        }
+        //Console.Clear();
+        //await playerSelectionView.Show();
 
-        public static void ConfigureServices(IServiceCollection services)
+        //Console.Clear();
+        //await gameView.Show();
+    }
 
-        {
-            var appSettings = new AppSettings();
-            Configuration.Bind(nameof(AppSettings), appSettings);
-            services.AddSingleton(appSettings);
+    public static void ConfigureServices(IServiceCollection services)
 
-            services.AddSingleton<MemoryStore>();
-            services.AddSingleton<ITokenStore, TokenStore>();
+    {
+        var appSettings = new AppSettings();
+        Configuration.Bind(nameof(AppSettings), appSettings);
+        services.AddSingleton(appSettings);
 
-            //Register Navigation
-            services.AddTransient<NavigationManager>();
+        services.AddSingleton<MemoryStore>();
+        services.AddSingleton<ITokenStore, TokenStore>();
 
-            //Register the Views
-            services.AddTransient<ExitView>();
-            services.AddTransient<GameView>();
-            services.AddTransient<HelpView>();
-            services.AddTransient<InventoryView>();
-            services.AddTransient<LeaderboardView>();
-            services.AddTransient<PlayerSelectionView>();
-            services.AddTransient<RegisterView>();
-            services.AddTransient<ShopView>();
-            services.AddTransient<SignInView>();
-            services.AddTransient<TitleView>();
+        //Register Navigation
+        services.AddTransient<NavigationManager>();
 
-            //Register the Sdk api classes
-            services.AddApi(appSettings.ApiBaseUrl);
-        }
+        //Register the Views
+        services.AddTransient<ExitView>();
+        services.AddTransient<GameView>();
+        services.AddTransient<HelpView>();
+        services.AddTransient<InventoryView>();
+        services.AddTransient<LeaderboardView>();
+        services.AddTransient<PlayerSelectionView>();
+        services.AddTransient<RegisterView>();
+        services.AddTransient<ShopView>();
+        services.AddTransient<SignInView>();
+        services.AddTransient<TitleView>();
+
+        //Register the Sdk api classes
+        services.AddApi(appSettings.ApiBaseUrl);
     }
 }

@@ -1,6 +1,5 @@
 ﻿@page "/negativegameventadmin"
-@using Microsoft.AspNetCore.Authorization
-@inject INegativeGameEventApi _negativeGameEventApi
+@inject INegativeGameEventApi NegativeGameEventApi
 @*@attribute [Authorize(Roles = "Admin")]*@
 
 <style>
@@ -59,13 +58,13 @@
 
     private async Task DeleteItem(int id)
     {
-        await _negativeGameEventApi.DeleteAsync(id);
+        await NegativeGameEventApi.DeleteAsync(id);
         await RefreshItems();
     }
 
     private async Task RefreshItems()
     {
-        var gameEvents = await _negativeGameEventApi.Find();
+        var gameEvents = await NegativeGameEventApi.Find();
         NegativeGameEventResults = gameEvents.Data;
     }
 

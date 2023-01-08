@@ -1,6 +1,5 @@
 ﻿@page "/positivegameventadmin"
-@using Microsoft.AspNetCore.Authorization
-@inject IPositiveGameEventApi _positiveGameEventApi
+@inject IPositiveGameEventApi PositiveGameEventApi
 @*@attribute [Authorize(Roles = "Admin")]*@
 
 <style>
@@ -57,13 +56,13 @@
 
     private async Task DeleteItem(int id)
     {
-        await _positiveGameEventApi.DeleteAsync(id);
+        await PositiveGameEventApi.DeleteAsync(id);
         await RefreshItems();
     }
 
     private async Task RefreshItems()
     {
-        var gameEvents = await _positiveGameEventApi.Find();
+        var gameEvents = await PositiveGameEventApi.Find();
         PositiveGameEventResults = gameEvents.Data;
     }
 

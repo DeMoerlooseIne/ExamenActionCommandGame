@@ -6,12 +6,11 @@
 @inject ILocalStorageService StorageService
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
-@using ActionCommandGame.BlazorApp.Components
 
 
 <style>
     body {
-        background-image: url(../images/backgrounds/wallpaper5.png);
+        background-image: url(/images/backgrounds/wallpaper5.png);
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -21,78 +20,80 @@
 
     <div class="d-flex w-100 justify-content-between">
         <a href="/players">
-            <img class="btn change-player-btn-image change-player-btn" src="images/buttons/change-player-button.png" />
+            <img class="btn change-player-btn-image change-player-btn" src="images/buttons/change-player-button.png"/>
         </a>
         <audio id="player">
-            <source id="playerSource" src="" />
+            <source id="playerSource" src=""/>
         </audio>
         <a @onclick="Logout">
-            <img class="btn logout-btn-image logout-btn" src="images/buttons/logout.png" />
+            <img class="btn logout-btn-image logout-btn" src="images/buttons/logout.png"/>
         </a>
     </div>
     <div class="container">
         <div style="height: 60vh" class="row mt-0">
             <div class="col-12 col-lg-5 mt-0 portal-section">
                 <div data-placement="top">
-                <div data-toggle="tooltip" title="CLICK ME" class="d-flex flex-row justify-content-center mb-5">
-                    <audio id="player">
-                        <source id="playerSource" src="" />
-                    </audio>
-                    <button @onclick="Travel" class="btn rounded-circle btn-dark">
-                        <img class="portal @PortalTwirlCss" src="images/Portal.png"/>
-                    </button>
-                </div>
-                <div class="h5 primary-color mt-3 lift-text">
-                    @if (_positiveGameEvent is null)
-                    {
-                        <p class="h1 primary-color">
-                            Which dimension are you going to end up ?
-                        </p>
-                    }
-                    @if (_positiveGameEvent != null)
-                    {
-                        <p class="font-family-style fw-bold h-6">@Player.Name, Click the portal gun and go...</p>
-                        <p class="font-family-style fst-italic">@_positiveGameEvent.Name</p>
-                        @if (!string.IsNullOrWhiteSpace(_positiveGameEvent.Description))
+                    <div data-toggle="tooltip" title="CLICK ME" class="d-flex flex-row justify-content-center mb-5">
+                        <audio id="player">
+                            <source id="playerSource" src=""/>
+                        </audio>
+                        <button @onclick="Travel" class="btn rounded-circle btn-dark">
+                            <img class="portal @PortalTwirlCss" src="images/Portal.png"/>
+                        </button>
+                    </div>
+                    <div class="h5 primary-color mt-3 lift-text">
+                        @if (_positiveGameEvent is null)
                         {
-                            <p>@_positiveGameEvent.Description</p>
+                            <p class="h1 primary-color">
+                                Which dimension are you going to end up ?
+                            </p>
                         }
-                        @if (_positiveGameEvent.Money > 0)
+                        @if (_positiveGameEvent != null)
                         {
-                            <p>@($"{_positiveGameEvent.Money} dollars has been added to your account.")</p>
-                        }
-                    }
-                    @if (_negativeGameEvent != null)
-                    {
-                        <p>@_negativeGameEvent.Name</p>
-                        @if (!string.IsNullOrWhiteSpace(_negativeGameEvent.Description))
-                        {
-                            <p>@_negativeGameEvent.Description</p>
-
-                            @foreach (var message in _negativeGameEventMessage)
+                            <p class="font-family-style fw-bold h-6">@Player.Name, Click the portal gun and go...</p>
+                            <p class="font-family-style fst-italic">@_positiveGameEvent.Name</p>
+                            @if (!string.IsNullOrWhiteSpace(_positiveGameEvent.Description))
                             {
-                                <p>@message.Message</p>
+                                <p>@_positiveGameEvent.Description</p>
+                            }
+                            @if (_positiveGameEvent.Money > 0)
+                            {
+                                <p>@($"{_positiveGameEvent.Money} dollars has been added to your account.")</p>
                             }
                         }
-                    }
-                    @foreach (var message in ServiceMessages)
-                    {
-                        <p class="service-message">@message.Message</p>
-                    }
+                        @if (_negativeGameEvent != null)
+                        {
+                            <p>@_negativeGameEvent.Name</p>
+                            @if (!string.IsNullOrWhiteSpace(_negativeGameEvent.Description))
+                            {
+                                <p>@_negativeGameEvent.Description</p>
+
+                                @foreach (var message in _negativeGameEventMessage)
+                                {
+                                    <p>@message.Message</p>
+                                }
+                            }
+                        }
+                        @foreach (var message in ServiceMessages)
+                        {
+                            <p class="service-message">@message.Message</p>
+                        }
+                    </div>
                 </div>
             </div>
-            </div>
             <div class="col-12 col-lg-3 mt-2 me-3">
-                <StatsComponent Player="Player" />
+                <StatsComponent Player="Player"/>
             </div>
             <div class="col-12 col-lg-3 mt-2">
                 <div class="mb-3">
-                    <LeaderboardComponent OrderedPlayers="_orderedPlayers" />
+                    <LeaderboardComponent OrderedPlayers="_orderedPlayers"/>
                 </div>
                 <div>
                     <div class="playeritemcard text-center shadow ">
                         <div class="card-header h2 bg-dark text-white">
-                            <a href="/shop"><i class="fa-solid fa-cart-plus text-white"></i></a>
+                            <a href="/shop">
+                                <i class="fa-solid fa-cart-plus text-white"></i>
+                            </a>
                             Shop
                         </div>
                         @if (!PlayerItems.Any())
@@ -135,32 +136,32 @@
 
     private List<string> RickSounds = new List<string>()
     {
-        "by-the-way-life-on-other-planets-exists.mp3", "ill-see-you-motherfuckers-at-the-dance.mp3", 
+        "by-the-way-life-on-other-planets-exists.mp3", "ill-see-you-motherfuckers-at-the-dance.mp3",
         "it-was-your-idea.mp3", "i-think-this-might-be-it.mp3", "im-a-genius.mp3",
-        "nice-to-be-on-the-same-page-every-once-in-awhile.mp3", "oh-shit-dog.mp3", 
+        "nice-to-be-on-the-same-page-every-once-in-awhile.mp3", "oh-shit-dog.mp3",
         "Pickle Rick.mp3", "and-if-you-spend-all-day-shuffling-words-around-you-can-make-anything-sound-bad-morty.mp3",
-        "good-idea.mp3", "hell-yeah.mp3", "holy-shit.mp3", "punk-ass-little-bitch.mp3", 
+        "good-idea.mp3", "hell-yeah.mp3", "holy-shit.mp3", "punk-ass-little-bitch.mp3",
         "relax-and-stop-being-a-pussy-morty.mp3", "Wabbalubbadubdub.mp3",
-        "and-how-dare-you-even-ask-me-that.mp3","alien-bureaucrats-are-gonna-arrest-you.mp3",
-        "alright-im-bored.mp3","amazing.mp3","and-thats-why-i-always-say.mp3","as-they-say-in-canada-peace-out.mp3",
-        "Bird Person No.mp3","bye.mp3","dont-be-like-that.mp3","dont-break-an-arm-jerking-yourself-off.mp3",
+        "and-how-dare-you-even-ask-me-that.mp3", "alien-bureaucrats-are-gonna-arrest-you.mp3",
+        "alright-im-bored.mp3", "amazing.mp3", "and-thats-why-i-always-say.mp3", "as-they-say-in-canada-peace-out.mp3",
+        "Bird Person No.mp3", "bye.mp3", "dont-be-like-that.mp3", "dont-break-an-arm-jerking-yourself-off.mp3",
         "dont-hate-the-player-hate-the-game-son.mp3", "careful-guys-youre-going-to-burn-up-the-cpu-with-this-one.mp3",
         "couldnt-help-but-notice-that-you-were-having-problems-generating-power.mp3",
-        "errand-to-run-pt3.mp3","fine-whatever.mp3","Flip the Pickle.mp3", "fuck-you.mp3",
-        "get-those-seeds-out-your-ass.mp3","go-clean-the-toilets.mp3","good-game.mp3",
-        "good-idea.mp3", "god-damn-it-i-love-myself.mp3","hell-yeah.mp3","Here I go killin.mp3",
+        "errand-to-run-pt3.mp3", "fine-whatever.mp3", "Flip the Pickle.mp3", "fuck-you.mp3",
+        "get-those-seeds-out-your-ass.mp3", "go-clean-the-toilets.mp3", "good-game.mp3",
+        "good-idea.mp3", "god-damn-it-i-love-myself.mp3", "hell-yeah.mp3", "Here I go killin.mp3",
         "hey-little-buddy.mp3", "holy-shit.mp3", "i-dont-know-you-think-i-know-everything.mp3",
         "i-have-had-a-rough-day-and-ive-sustained-a-lot-of-damage-im-pretty-close-to-death-which-the-serum-will-prevent.mp3",
         "i-mean-we-got-we-gotta-get-get-the-hell-out-of-here-and-go-take-care-of-business.mp3",
         "im-gonna-kill-you.mp3", "im-jerry-smith-and-i.mp3", "i-remember-the-conversation.mp3",
         "i-think-this-might-be-it.mp3", "its-a-serum-that-i-need-to-stay-alive.mp3", "its-time-to-go-back-to-our-lives.mp3",
-        "i-wouldnt-want-to-offend-you.mp3","jesus-christ.mp3","just-a-yes-or-no.mp3", "Let Me Out.mp3",
-        "lets-go.mp3", "lick-lick-lick-my-balls.mp3","love-pt1.mp3","not-the-world-pt2.mp3","not-the-world-pt6.mp3",
+        "i-wouldnt-want-to-offend-you.mp3", "jesus-christ.mp3", "just-a-yes-or-no.mp3", "Let Me Out.mp3",
+        "lets-go.mp3", "lick-lick-lick-my-balls.mp3", "love-pt1.mp3", "not-the-world-pt2.mp3", "not-the-world-pt6.mp3",
         "listen-im-not-the-nicest-guy-in-the-universe.mp3", "Oh jeez okay.mp3", "poor-use-of-my-time.mp3",
         "oh-my-god-its-a-living-nightmare.mp3", "oh-wow-gay.mp3", "no-cant-do-morty-i-just-cant.mp3",
         "oh-responsive-too.mp3", "Not In Control.mp3", "rick quote wrecked.mp3", "Thankyou.mp3", "testicle-sacks.mp3",
         "ok-i-may-have-fucked-up-here.mp3", "theres-a-lot-more-where-that-came-from-too.mp3",
-        "so-i-really-think-what-youre-doing-here-is-unethical.mp3","we-both-know-it-wouldnt-work.mp3",
+        "so-i-really-think-what-youre-doing-here-is-unethical.mp3", "we-both-know-it-wouldnt-work.mp3",
         "S!U about moonmen.mp3", "Show Me What You Got.mp3", "What is my purpose.mp3",
         "you-have-my-word-as-a-caregiver-everythings-gonna-be-fine.mp3", "youre-acting-like-a-freaking-lunatic.mp3",
         "you-really-are-your-fathers-children.mp3", "big-star-in-the-sky-oxygen-rich-atmosphere-giant-testicle-monsters.mp3",
@@ -205,9 +206,9 @@
     private async Task RefreshPlayeritems()
     {
         Filter = new PlayerItemFilter()
-            {
-                PlayerId = _playerId
-            };
+        {
+            PlayerId = _playerId
+        };
 
         var playerItemResult = await PlayerItemApi.FindAsync(Filter);
         PlayerItems = playerItemResult.Data;
@@ -230,4 +231,12 @@
     {
         PortalTwirlCss = "";
     }
+
+    private IGameApi _gameApi;
+    private IPlayerApi _playerApi;
+    private IItemApi _itemApi;
+    private IPlayerItemApi _playerItemApi;
+    private ILocalStorageService _storageService;
+    private IJSRuntime _jsRuntime;
+    private NavigationManager _navigationManager;
 }

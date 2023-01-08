@@ -1,8 +1,6 @@
 using ActionCommandGame.Api.Installers.Extensions;
 using ActionCommandGame.Repository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,10 +39,7 @@ app.UseStaticFiles();
 //Initialize dbContext in SQLServer --> DbInstaller
 using var scope = app.Services.CreateScope();
 var dbContext = scope.ServiceProvider.GetRequiredService<ActionCommandGameDbContext>();
-if (dbContext.Database.IsInMemory())
-{
-    dbContext.Initialize();
-}
+if (dbContext.Database.IsInMemory()) dbContext.Initialize();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

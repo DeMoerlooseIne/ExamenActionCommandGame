@@ -1,31 +1,30 @@
-﻿using System.Collections.Generic;
-using ActionCommandGame.Abstractions;
+﻿using ActionCommandGame.Abstractions;
+using System.Collections.Generic;
 
-namespace ActionCommandGame.Model
+namespace ActionCommandGame.Model;
+
+public class PlayerItem : IIdentifiable
 {
-    public class PlayerItem: IIdentifiable
+    public PlayerItem()
     {
-        public PlayerItem()
-        {
-            FuelPlayers = new List<Player>();
-            AttackPlayers = new List<Player>();
-            DefensePlayers = new List<Player>();
-        }
-
-        public int Id { get; set; }
-
-        public int PlayerId { get; set; }
-        public Player Player { get; set; }
-
-        public int ItemId { get; set; }
-        public Item Item { get; set; }
-
-        public int RemainingFuel { get; set; }
-        public int RemainingAttack { get; set; }
-        public int RemainingDefense { get; set; }
-
-        public IList<Player> FuelPlayers { get; set; }
-        public IList<Player> AttackPlayers { get; set; }
-        public IList<Player> DefensePlayers { get; set; }
+        FuelPlayers = new List<Player>();
+        AttackPlayers = new List<Player>();
+        DefensePlayers = new List<Player>();
     }
+
+    public int PlayerId { get; set; }
+    public Player Player { get; set; }
+
+    public int ItemId { get; set; }
+    public Item Item { get; set; }
+
+    public int RemainingFuel { get; set; }
+    public int RemainingAttack { get; set; }
+    public int RemainingDefense { get; set; }
+
+    public IList<Player> FuelPlayers { get; set; }
+    public IList<Player> AttackPlayers { get; set; }
+    public IList<Player> DefensePlayers { get; set; }
+
+    public int Id { get; set; }
 }

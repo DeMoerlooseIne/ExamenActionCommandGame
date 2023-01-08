@@ -1,11 +1,10 @@
-﻿namespace ActionCommandGame.Api.Authentication.Model
+﻿namespace ActionCommandGame.Api.Authentication.Model;
+
+public class AuthenticationResult
 {
-	public class AuthenticationResult
-	{
-		public string? Token { get; set; }
+    public string? Token { get; set; }
 
-		public bool Success =>  Errors == null || !Errors.Any();
+    public bool Success => Errors == null || !Errors.Any();
 
-		public IEnumerable<string>? Errors { get; set; }
-	}
+    public IEnumerable<string>? Errors { get; set; }
 }
